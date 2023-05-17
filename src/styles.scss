@@ -1,1 +1,81 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+.toolbar{
+    margin: 10px 10px 10px 350px;
+    
+
+    .year{
+        margin: 0 5px;
+        display: inline-block;
+        font-size: 20px;
+    }
+}
+
+.calendar{
+    border:solid black 1px;
+    border-top: 1px;    
+    border-right: 1px;    
+    border-bottom: 0px;   
+    width: 1156px; 
+}
+
+.month{
+    h1{
+        font-size: 14px;
+        padding: 5px;
+        background-color: lightgray;
+        margin: 0;
+        text-align: center;
+        border-bottom:solid black 1px;
+    }
+
+    vertical-align: top;
+    display: inline-block;
+    width: 190px;
+    border:solid black 1px;
+    //border-left: 0px;    
+    border-bottom: 0px;    
+}
+
+.day{
+    padding: 1px;
+    border-bottom:solid darkgray 1px;
+    vertical-align: middle;
+    height: 20px;
+    .cell{
+        display: inline-block;
+        width: 20px;
+        font-weight: bold;
+    }
+    .cell-day-name{
+        display: inline-block;
+        width: 35px;
+    }
+    .label{
+        display: inline-block;
+    }
+}
+
+.saturday{
+    background-color: #e8e8ff;
+}
+
+.sunday{
+    background-color: #88bbff;
+}
+
+.special-day.france{
+    background-color: #ffaaaa;
+}
+
+.special-day.suisse{
+    background-color: #ffe8aa;
+}
+
+.special-day.france.suisse{
+    background: linear-gradient(90deg, #ffaaaa 0%,  #ffe8aa 70%);
+}
