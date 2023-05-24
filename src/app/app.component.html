@@ -1,18 +1,1 @@
-<div class="toolbar">
-  <button (click)="previous()">&lt;&lt;</button>
-  <div class="year">{{yearViewModel.year}}</div><button (click)=" next()">&gt;&gt;</button>
-</div>
-<div class="calendar">
-
-  <div class="month" *ngFor="let month of yearViewModel.months">
-    <h1>{{month.name}}</h1>
-
-    <div class="day" [class.saturday]="day.isSaturday" [class.sunday]="day.isSunday"
-      [class.special-day]="day.isSpecialDay" [class.france]="day.isFrance" [class.suisse]="day.isSuisse"
-      *ngFor="let day of month.days">
-      <div class="cell">{{day.dayOfMonth}}</div>
-      <div class="cell-day-name">{{day.dayOfWeek}}</div>
-      <div class="label">{{day.label}}</div>
-    </div>
-  </div>
-</div>
+<app-year></app-year>

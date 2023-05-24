@@ -1,5 +1,10 @@
+import { Injectable } from '@angular/core';
+
+@Injectable({
+    providedIn: 'root'
+})
 export class EasterProvider {
-    public static getEasterDate(year: number): Date {
+    public getEasterDate(year: number): Date {
         const a = year % 19
         const century = Math.floor(year / 100)
         const yearsAfterCentury = year % 100

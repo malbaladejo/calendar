@@ -10,6 +10,9 @@ export class SpecialDaysService {
 
   private specilasDays = new Map<number, SpecialDay[]>();
 
+  constructor(private easterProvider: EasterProvider, private jeuneGenevoisProvider: JeuneGenevoisProvider) {
+  }
+
   public getLabel(date: Date): SpecialDay | undefined {
     const specialDays = this.ensureSpecialDays(date.getFullYear());
     return specialDays.find(d => this.dateEquals(d.date, date));
@@ -34,14 +37,14 @@ export class SpecialDaysService {
     specilasDays.push(SpecialDay.create(26, 12, year, 'LO', false, true));
     specilasDays.push(SpecialDay.create(31, 12, year, 'RESTAURATION', false, true));
 
-    const easterDate = EasterProvider.getEasterDate(year);
+    const easterDate = this.easterProvider.getEasterDate(year);
     specilasDays.push(new SpecialDay(this.addDays(easterDate, -2), 'VENDREDI SAINT', false, true));
     specilasDays.push(new SpecialDay(this.addDays(easterDate, 1), 'LUNDI PAQUES', true, true));
     specilasDays.push(new SpecialDay(this.addDays(easterDate, 39), 'ASCENSION', true, true));
     specilasDays.push(new SpecialDay(this.addDays(easterDate, 40), 'V. ASCENSION', true, false));
     specilasDays.push(new SpecialDay(this.addDays(easterDate, 50), 'PENTECOTE', true, true));
 
-    const jeuneGenevois = JeuneGenevoisProvider.getJeuneGenevoisDate(year);
+    const jeuneGenevois = this.jeuneGenevoisProvider.getJeuneGenevoisDate(year);
     specilasDays.push(new SpecialDay(jeuneGenevois, 'JEUNE GENEVOIS', false, true));
     this.specilasDays.set(year, specilasDays);
 
