@@ -80,3 +80,27 @@ body{
 .special-day.france.suisse{
     background: linear-gradient(to right, #ffaaaa 0%, #ffaaaa 50%,  #ffe8aa 50%,  #ffe8aa 100%);
 }
+
+.holiday{
+    background: linear-gradient(to right, #ffffff 0%, #ffffff 95%,  red 95%,  red 100%);
+}
+
+.sunday.holiday{
+    background: linear-gradient(to right, #88bbff 0%, #88bbff 95%,  red 95%,  red 100%);
+}
+
+.saturday.holiday{
+    background: linear-gradient(to right, #e8e8ff 0%, #e8e8ff 95%,  red 95%,  red 100%);
+}
+
+.special-day.france.holiday{
+    background: linear-gradient(to right, #ffaaaa 0%, #ffaaaa 95%,  red 95%,  red 100%);
+}
+
+.special-day.suisse.holiday{
+    background: linear-gradient(to right, #ffe8aa 0%, #ffe8aa 95%,  red 95%,  red 100%);
+}
+
+.special-day.france.suisse.holiday{
+    background: linear-gradient(to right, #ffaaaa 0%, #ffaaaa 50%,  #ffe8aa 50%,  #ffe8aa 95%,  red 95%,  red 100%);
+}

@@ -9,6 +9,7 @@ import { DayComponent } from './day/day.component';
 import { MonthComponent } from './month/month.component';
 import { YearComponent } from './year/year.component';
 import { JeuneGenevoisProvider } from './services/jeune-genevois-provider';
+import { SchoolHolidaysService } from './services/school-holidays.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,11 @@ import { JeuneGenevoisProvider } from './services/jeune-genevois-provider';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [SpecialDaysService, EasterProvider, JeuneGenevoisProvider],
+  providers: [
+    SpecialDaysService,
+    EasterProvider,
+    JeuneGenevoisProvider,
+    SchoolHolidaysService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

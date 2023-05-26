@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { SchoolHolidaysService } from '../services/school-holidays.service';
 import { SpecialDaysService } from '../services/specialdays.service';
 
 @Component({
@@ -9,8 +10,10 @@ import { SpecialDaysService } from '../services/specialdays.service';
 export class DayComponent {
   private _date?: Date;
   private dayInitials = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
-
-  constructor(private specialDaysService: SpecialDaysService) {
+  private _isHoliday = false;
+  constructor(
+    private specialDaysService: SpecialDaysService,
+    private schoolHolidaysService: SchoolHolidaysService) {
 
   }
 
@@ -21,6 +24,15 @@ export class DayComponent {
   @Input()
   public set date(value: Date | undefined) {
     this._date = value;
+    this.loadHolidayAsync();
+  }
+
+  public get isHoliday(): boolean {
+    return this._isHoliday;
+  }
+
+  public set isHoliday(value: boolean) {
+    this._isHoliday = value;
   }
 
   public get dayOfMonth(): string {
@@ -75,5 +87,13 @@ export class DayComponent {
       return '';
     }
     return this.specialDaysService.getLabel(this.date)?.label ?? '';
+  }
+
+  private async loadHolidayAsync(): Promise<void> {
+    if (!this.date) {
+      return;
+    }
+
+    this.isHoliday = await this.schoolHolidaysService.isHolidayAsync(this.date);
   }
 }

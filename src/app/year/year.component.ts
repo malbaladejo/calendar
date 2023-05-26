@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { SchoolHolidaysService } from '../services/school-holidays.service';
 
 @Component({
   selector: 'app-year',
@@ -9,74 +10,68 @@ export class YearComponent {
   private _date?: Date = new Date();
   private _firstMonth = 0;
   public months = new Array<Date>();
-  constructor() {
-    this.buildMonths();
-  }
 
-  public get firstMonth(): number {
-    return this._firstMonth;
-  }
-
-  @Input()
-  public set firstMonth(value: number) {
-    this._firstMonth = value;
-    this.buildMonths();
+  constructor(private schoolHolidaysService: SchoolHolidaysService) {
+    this.buildMonthsAsync();
   }
 
   public get date(): Date | undefined {
     return this._date;
   }
 
-  @Input()
   public set date(value: Date | undefined) {
     this._date = value;
-    this.buildMonths();
   }
-
 
   public get year(): Number {
     return this.date?.getFullYear() ?? 0;
   }
 
-  private buildMonths(): void {
+  private async buildMonthsAsync(): Promise<void> {
     if (!this.date) {
       return;
     }
 
+    console.log("buildMonthsAsync:" + this.date);
+    await this.schoolHolidaysService.ensureDataAsync(this.date);
     this.months.splice(0);
-    for (let month = this.firstMonth; month < this.firstMonth + 6; month++) {
+
+    for (let month = this._firstMonth; month < this._firstMonth + 6; month++) {
       const monthVM = new Date(this.date.getFullYear(), month, 1);
       this.months.push(monthVM);
     }
   }
 
-  public previous(): void {
+  public async previous(): Promise<void> {
     if (!this.date) {
       return;
     }
 
-    if (this.firstMonth === 0) {
-      this.firstMonth = 6;
+    if (this._firstMonth === 0) {
+      this._firstMonth = 6;
       this.date = new Date(this.date.getFullYear() - 1, 0, 1);
     }
     else {
-      this.firstMonth = 0;
+      this._firstMonth = 0;
     }
-    this.buildMonths();
+
+    await this.buildMonthsAsync();
   }
 
-  public next(): void {
+  public async next(): Promise<void> {
     if (!this.date) {
       return;
     }
 
-    if (this.firstMonth === 0) {
-      this.firstMonth = 6;
+    if (this._firstMonth === 0) {
+      this._firstMonth = 6;
     }
     else {
-      this.firstMonth = 0;
+      this._firstMonth = 0;
       this.date = new Date(this.date.getFullYear() + 1, 0, 1);
     }
-    this.buildMonths();
+
+    console.log("next:" + this.date);
+    await this.buildMonthsAsync();
   }
 }
