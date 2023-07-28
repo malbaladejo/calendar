@@ -11,9 +11,11 @@ export class DayComponent {
   private _date?: Date;
   private dayInitials = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
   private _isHoliday = false;
+  private _isBackToSchool = false;
+  private _label = '';
   constructor(
-    private specialDaysService: SpecialDaysService,
-    private schoolHolidaysService: SchoolHolidaysService) {
+    private readonly specialDaysService: SpecialDaysService,
+    private readonly schoolHolidaysService: SchoolHolidaysService) {
 
   }
 
@@ -33,6 +35,14 @@ export class DayComponent {
 
   public set isHoliday(value: boolean) {
     this._isHoliday = value;
+  }
+
+  public get isBackToSchool(): boolean {
+    return this._isBackToSchool;
+  }
+
+  public set isBackToSchool(value: boolean) {
+    this._isBackToSchool = value;
   }
 
   public get dayOfMonth(): string {
@@ -83,10 +93,11 @@ export class DayComponent {
   }
 
   public get label(): string {
-    if (!this.date) {
-      return '';
-    }
-    return this.specialDaysService.getLabel(this.date)?.label ?? '';
+    return this._label;
+  }
+
+  public set label(value: string) {
+    this._label = value;
   }
 
   private async loadHolidayAsync(): Promise<void> {
@@ -95,5 +106,30 @@ export class DayComponent {
     }
 
     this.isHoliday = await this.schoolHolidaysService.isHolidayAsync(this.date);
+
+    if (!this.isHoliday) {
+      this.isBackToSchool = await this.schoolHolidaysService.isHolidayAsync(this.addDays(this.date, -1));
+    }
+
+    this.buildLabel();
+  }
+
+  private buildLabel(): void {
+    if (!this.date) {
+      return;
+    }
+
+    if (this.isBackToSchool) {
+      this.label = 'RENTRÉE CLASSE'
+      return;
+    }
+
+    this.label = this.specialDaysService.getLabel(this.date)?.label ?? '';
+  }
+
+  private addDays(date: Date | undefined, days: number): Date {
+    if (!date)
+      return new Date();
+    return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
   }
 }

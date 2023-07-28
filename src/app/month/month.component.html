@@ -1,5 +1,5 @@
 <div class="month">
-    <h1>{{name}}</h1>
+    <h1 class="month-name" [class.pair]="pair">{{name.toUpperCase()}}</h1>
     <div *ngFor="let day of days">
         <app-day [date]="day"></app-day>
     </div>

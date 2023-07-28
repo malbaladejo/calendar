@@ -22,6 +22,14 @@ export class MonthComponent {
     this.buildDays();
   }
 
+  public get monthNumber(): number | undefined {
+    return this.date?.getMonth();
+  }
+
+  public get pair(): boolean {
+    return ((this.monthNumber ?? 0) + 1) % 2 === 0;
+  }
+
   public get name(): string {
     if (!this.date) {
       return '';
