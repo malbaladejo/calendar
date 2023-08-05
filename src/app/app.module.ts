@@ -10,6 +10,11 @@ import { MonthComponent } from './month/month.component';
 import { YearComponent } from './year/year.component';
 import { JeuneGenevoisProvider } from './services/jeune-genevois-provider';
 import { SchoolHolidaysService } from './services/school-holidays.service';
+import { FormsModule } from '@angular/forms';
+import { CustomLabelsService } from './services/custom-labels/custom-labels.service';
+import { DateService } from './services/date-service';
+import { CustomLabelsDataService } from './services/custom-labels/custom-labels-data.service';
+import { CustomLabelsDataLocalStorageService } from './services/custom-labels/custom-labels-data-local-storage.service';
 
 @NgModule({
   declarations: [
@@ -20,13 +25,17 @@ import { SchoolHolidaysService } from './services/school-holidays.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [
     SpecialDaysService,
     EasterProvider,
     JeuneGenevoisProvider,
-    SchoolHolidaysService],
+    SchoolHolidaysService,
+    CustomLabelsService,
+    { provide: CustomLabelsDataService, useClass: CustomLabelsDataLocalStorageService },
+    DateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

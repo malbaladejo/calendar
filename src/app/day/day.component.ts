@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CustomLabelsService } from '../services/custom-labels/custom-labels.service';
 import { SchoolHolidaysService } from '../services/school-holidays.service';
 import { SpecialDaysService } from '../services/specialdays.service';
 
@@ -13,10 +14,17 @@ export class DayComponent {
   private _isHoliday = false;
   private _isBackToSchool = false;
   private _label = '';
+  private _readonly = false;
+
   constructor(
     private readonly specialDaysService: SpecialDaysService,
-    private readonly schoolHolidaysService: SchoolHolidaysService) {
+    private readonly schoolHolidaysService: SchoolHolidaysService,
+    private readonly customLabelsService: CustomLabelsService) {
 
+  }
+
+  public get readonly(): boolean {
+    return this._readonly;
   }
 
   public get date(): Date | undefined {
@@ -98,6 +106,10 @@ export class DayComponent {
 
   public set label(value: string) {
     this._label = value;
+
+    if (this.date) {
+      this.customLabelsService.setLabelAsync(this.date, value);
+    }
   }
 
   private async loadHolidayAsync(): Promise<void> {
@@ -115,16 +127,47 @@ export class DayComponent {
   }
 
   private buildLabel(): void {
+    if (this.buildBackToSchoolLabel()) {
+      return;
+    }
+
+    if (this.buildSpecialDaysLabel()) {
+      return;
+    }
+
+    this.buildCustomLabel();
+  }
+
+  private buildBackToSchoolLabel(): boolean {
+    if (this.isBackToSchool) {
+      this._label = 'RENTRÉE CLASSE'
+      this._readonly = true;
+      return true;
+    }
+
+    return false;
+  }
+
+  private buildSpecialDaysLabel(): boolean {
+    if (!this.date) {
+      return false;
+    }
+
+    this._label = this.specialDaysService.getLabel(this.date)?.label ?? '';
+    if (this._label) {
+      this._readonly = true;
+      return true;
+    }
+
+    return false;
+  }
+
+  private buildCustomLabel(): void {
     if (!this.date) {
       return;
     }
 
-    if (this.isBackToSchool) {
-      this.label = 'RENTRÉE CLASSE'
-      return;
-    }
-
-    this.label = this.specialDaysService.getLabel(this.date)?.label ?? '';
+    this._label = this.customLabelsService.getLabel(this.date) ?? '';
   }
 
   private addDays(date: Date | undefined, days: number): Date {

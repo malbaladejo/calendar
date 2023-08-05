@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CustomLabelsService } from '../services/custom-labels/custom-labels.service';
 import { SchoolHolidaysService } from '../services/school-holidays.service';
 
 @Component({
@@ -11,7 +12,9 @@ export class YearComponent {
   private _firstMonth = 0;
   public months = new Array<Date>();
 
-  constructor(private schoolHolidaysService: SchoolHolidaysService) {
+  constructor(
+    private readonly schoolHolidaysService: SchoolHolidaysService,
+    private readonly customLabelsService: CustomLabelsService) {
     this.buildMonthsAsync();
   }
 
@@ -34,6 +37,7 @@ export class YearComponent {
 
     console.log("buildMonthsAsync:" + this.date);
     await this.schoolHolidaysService.ensureDataAsync(this.date);
+    await this.customLabelsService.ensureDataAsync(this.date);
     this.months.splice(0);
 
     for (let month = this._firstMonth; month < this._firstMonth + 6; month++) {

@@ -5,8 +5,9 @@ body{
 }
 
 .toolbar{
-    margin: 10px 10px 10px 350px;
     
+    margin:10px auto;
+    width: 200px; 
 
     .year{
         margin: 0 5px;
@@ -21,6 +22,7 @@ body{
     border-right: 1px;    
     border-bottom: 0px;   
     width: 1162px; 
+    margin:auto;
 }
 
 .month{
@@ -58,6 +60,12 @@ body{
     }
     .label{
         display: inline-block;
+        background: transparent;
+        border: 0px;
+        width: 124px;
+    }
+    .label:focus{
+        outline-style: none;
     }
 }
 

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DateService } from './date-service';
 import { EasterProvider } from './easter-provider';
 import { JeuneGenevoisProvider } from './jeune-genevois-provider';
 import { SpecialDay } from './special-day';
@@ -10,12 +11,15 @@ export class SpecialDaysService {
 
   private specilasDays = new Map<number, SpecialDay[]>();
 
-  constructor(private easterProvider: EasterProvider, private jeuneGenevoisProvider: JeuneGenevoisProvider) {
+  constructor(
+    private readonly easterProvider: EasterProvider,
+    private readonly jeuneGenevoisProvider: JeuneGenevoisProvider,
+    private readonly dateService: DateService) {
   }
 
   public getLabel(date: Date): SpecialDay | undefined {
     const specialDays = this.ensureSpecialDays(date.getFullYear());
-    return specialDays.find(d => this.dateEquals(d.date, date));
+    return specialDays.find(d => this.dateService.dateEquals(d.date, date));
   }
 
   private ensureSpecialDays(year: number): Array<SpecialDay> {
@@ -38,30 +42,16 @@ export class SpecialDaysService {
     specilasDays.push(SpecialDay.create(31, 12, year, 'RESTAURATION', false, true));
 
     const easterDate = this.easterProvider.getEasterDate(year);
-    specilasDays.push(new SpecialDay(this.addDays(easterDate, -2), 'VENDREDI SAINT', false, true));
-    specilasDays.push(new SpecialDay(this.addDays(easterDate, 1), 'LUNDI PAQUES', true, true));
-    specilasDays.push(new SpecialDay(this.addDays(easterDate, 39), 'ASCENSION', true, true));
-    specilasDays.push(new SpecialDay(this.addDays(easterDate, 40), 'V. ASCENSION', true, false));
-    specilasDays.push(new SpecialDay(this.addDays(easterDate, 50), 'PENTECOTE', true, true));
+    specilasDays.push(new SpecialDay(this.dateService.addDays(easterDate, -2), 'VENDREDI SAINT', false, true));
+    specilasDays.push(new SpecialDay(this.dateService.addDays(easterDate, 1), 'LUNDI PAQUES', true, true));
+    specilasDays.push(new SpecialDay(this.dateService.addDays(easterDate, 39), 'ASCENSION', true, true));
+    specilasDays.push(new SpecialDay(this.dateService.addDays(easterDate, 40), 'V. ASCENSION', true, false));
+    specilasDays.push(new SpecialDay(this.dateService.addDays(easterDate, 50), 'PENTECOTE', true, true));
 
     const jeuneGenevois = this.jeuneGenevoisProvider.getJeuneGenevoisDate(year);
     specilasDays.push(new SpecialDay(jeuneGenevois, 'JEUNE GENEVOIS', false, true));
     this.specilasDays.set(year, specilasDays);
 
     return specilasDays;
-  }
-
-  private addDays(date: Date | undefined, days: number): Date {
-    if (!date)
-      return new Date();
-    return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
-  }
-
-  private dateEquals(date1: Date, date2: Date | undefined): boolean {
-    if (!date2) {
-      return false;
-    }
-
-    return date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear()
   }
 }

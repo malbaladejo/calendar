@@ -2,5 +2,5 @@
     [class.france]="isFrance" [class.suisse]="isSuisse" [class.holiday]="isHoliday">
     <div class="cell">{{dayOfMonth}}</div>
     <div class="cell-day-name">{{dayOfWeek}}</div>
-    <div class="label">{{label}}</div>
+    <input class="label" [(ngModel)]="label" [readonly]="readonly">
 </div>
