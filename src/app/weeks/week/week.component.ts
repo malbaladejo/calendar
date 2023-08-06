@@ -1,11 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { DateService } from 'src/app/services/date-service';
+import { WeekDayComponent } from '../week-day/week-day.component';
 
 @Component({
   selector: 'app-week',
   templateUrl: './week.component.html',
   styleUrl: './week.component.scss',
-  standalone: false
+  standalone: true,
+  imports: [
+    WeekDayComponent
+  ]
 })
 export class WeekComponent {
   private _date?: Date;

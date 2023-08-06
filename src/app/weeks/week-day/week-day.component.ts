@@ -4,12 +4,18 @@ import { CustomLabelsService } from 'src/app/years/services/custom-labels/custom
 import { SchoolHolidaysService } from 'src/app/years/services/school-holidays.service';
 import { SpecialDaysService } from 'src/app/years/services/specialdays.service';
 import { Subscription } from 'rxjs';
+import { CustomTagComponent } from 'src/app/years/day/custom-tag/custom-tag.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-week-day',
   templateUrl: './week-day.component.html',
   styleUrl: './week-day.component.scss',
-  standalone: false
+  standalone: true,
+  imports: [
+    FormsModule,
+    CustomTagComponent
+  ]
 })
 export class WeekDayComponent implements OnInit, OnDestroy {
   private _date?: Date;

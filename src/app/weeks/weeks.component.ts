@@ -1,20 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DateService } from '../services/date-service';
 import { SchoolHolidaysService } from '../years/services/school-holidays.service';
 import { CustomLabelsService } from '../years/services/custom-labels/custom-labels.service';
+import { WeekComponent } from './week/week.component';
 
 @Component({
   selector: 'app-weeks',
   templateUrl: './weeks.component.html',
   styleUrl: './weeks.component.scss',
-  standalone: false
+  standalone: true,
+  imports: [
+    WeekComponent
+  ]
 })
 export class WeeksComponent implements OnInit {
   public weeks = [] as Date[];
   private readonly numberOfWeeks = 5;
   private firstDayOfCurrentWeek?: Date;
 
-  constructor(private readonly dateService: DateService,
+  constructor(
+    private readonly changeDetectorRef: ChangeDetectorRef,
+    private readonly dateService: DateService,
     private readonly schoolHolidaysService: SchoolHolidaysService,
     private readonly customLabelsService: CustomLabelsService) {
 
@@ -39,6 +45,8 @@ export class WeeksComponent implements OnInit {
       const firstDayOfWeek = this.dateService.addDays(this.firstDayOfCurrentWeek, 7 * i);
       this.weeks.push(firstDayOfWeek);
     }
+
+    this.changeDetectorRef.detectChanges();
   }
 
   public previousWeek(): void {

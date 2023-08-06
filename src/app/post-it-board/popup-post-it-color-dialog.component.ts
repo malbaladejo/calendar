@@ -12,7 +12,8 @@ import { PostItColor } from '../services/post-it/post-it-color';
     MatDialogTitle,
     MatDialogContent,
     MatDialogActions
-  ],
+  ],    
+  standalone: true
 })
 export class PopupPostItColorDialogComponent {
 

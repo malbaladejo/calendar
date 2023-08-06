@@ -1,0 +1,50 @@
+<div class="login-request-container">
+    @if (!emailSent()) {
+      <h1>Connexion</h1>
+      <p class="subtitle">Entrez votre nom ou votre email pour recevoir un lien de connexion.</p>
+  
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="identifier">Nom ou email</label>
+          <input
+            id="identifier"
+            type="text"
+            formControlName="identifier"
+            placeholder="ex: jean.dupont ou jean@exemple.com"
+            [class.invalid]="identifier?.invalid && identifier?.touched"
+            autocomplete="username"
+          />
+          @if (identifier?.invalid && identifier?.touched) {
+            <span class="error-text">
+              Merci de renseigner votre nom ou votre email.
+            </span>
+          }
+        </div>
+  
+        @if (errorMessage()) {
+          <div class="error-banner">
+            {{ errorMessage() }}
+          </div>
+        }
+  
+        <button type="submit" [disabled]="isSubmitting()">
+          @if (!isSubmitting()) {
+            Recevoir le lien de connexion
+          } @else {
+            Envoi en cours...
+          }
+        </button>
+      </form>
+    } @else {
+      <div class="success-message">
+        <h1>Email envoyé ✅</h1>
+        <p>
+          Si un compte correspond à cet identifiant, un email contenant le lien
+          de connexion vient de vous être envoyé.
+        </p>
+        <button type="button" class="secondary" (click)="resetForm()">
+          Renvoyer un email
+        </button>
+      </div>
+    }
+  </div>

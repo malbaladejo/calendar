@@ -19,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     MatIconModule,
     DragDropModule
-  ]
+  ],    
+  standalone: true
 })
 export class PostItBoardComponent implements OnInit {
   private _postIts: Array<PostItViewModel> = [];
@@ -29,7 +30,7 @@ export class PostItBoardComponent implements OnInit {
   constructor(
     @Inject(POST_IT_SERVICE) private _postItService: IPostItService,
     private _dialog: MatDialog,
-    private changeDetectorRef: ChangeDetectorRef) {
+    private readonly changeDetectorRef: ChangeDetectorRef) {
 
     window.addEventListener('keydown', event => {
       if (event.key === 'Control' && !this._isCtrlPressed) {

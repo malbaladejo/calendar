@@ -1,0 +1,38 @@
+// login/login.component.scss
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--mat-app-background-color);
+  }
+  
+  .login-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 16px;
+  
+    mat-card-title {
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+    }
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .submit-btn {
+    margin-top: 8px;
+    height: 44px;
+  
+    mat-spinner {
+      display: inline-block;
+    }
+  }
+  
+  .error-message {
+    color: var(--mat-form-field-error-text-color);
+    font-size: 0.875rem;
+    margin: 0 0 8px;
+  }

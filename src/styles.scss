@@ -77,6 +77,16 @@ textarea:focus {
     grid-template-rows: auto 1fr;
 }
 
+.grid-row-1fr-1fr {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.grid-col-1fr-1fr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
 @media print {
     .print-hidden {
         display: none !important;

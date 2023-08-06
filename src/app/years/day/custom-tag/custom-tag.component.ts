@@ -3,12 +3,14 @@ import { CustomTagsService } from '../../services/custom-tags/custom-tags.servic
 import { Subscription } from 'rxjs';
 import { DateService } from '../../../services/date-service';
 import { CustomLabelsService } from '../../services/custom-labels/custom-labels.service';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
-    selector: 'app-custom-tag',
-    templateUrl: './custom-tag.component.html',
-    styleUrls: ['./custom-tag.component.scss'],
-    standalone: false
+  selector: 'app-custom-tag',
+  templateUrl: './custom-tag.component.html',
+  styleUrls: ['./custom-tag.component.scss'],
+  standalone: true,
+  imports: [MatDividerModule]
 })
 export class CustomTagComponent implements OnInit, OnDestroy {
   private _date?: Date;

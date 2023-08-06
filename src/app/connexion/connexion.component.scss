@@ -1,0 +1,50 @@
+.login-container {
+  max-width: 420px;
+  margin: 60px auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+
+  h1 {
+    color: #222222;
+    font-size: 26px;
+    margin: 0 0 16px 0;
+  }
+
+  .subtitle {
+    color: #555555;
+    font-size: 15px;
+    margin: 0 0 30px 0;
+  }
+
+  label {
+    display: block;
+    font-size: 14px;
+    color: #333333;
+    margin-bottom: 6px;
+  }
+
+  .error-text {
+    display: block;
+    color: #e05555;
+    font-size: 13px;
+    margin-top: 6px;
+  }
+
+  .error-banner {
+    background-color: #fdecea;
+    color: #c0392b;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .success-message p {
+    color: #555555;
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+}

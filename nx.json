@@ -32,5 +32,11 @@
       "!{projectRoot}/**/*.spec.[jt]s"
     ]
   },
-  "analytics": false
+  "analytics": false,
+  "generators": {
+    "@nx/angular:component": {
+      "style": "css"
+    }
+  },
+  "neverConnectToCloud": true
 }

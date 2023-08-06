@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { YearComponent } from './year.component';
+import { YearComponent } from './YearComponent';
 
 describe('YearComponent', () => {
   let component: YearComponent;

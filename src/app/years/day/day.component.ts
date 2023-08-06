@@ -4,12 +4,18 @@ import { SchoolHolidaysService } from '../services/school-holidays.service';
 import { SpecialDaysService } from '../services/specialdays.service';
 import { Subscription } from 'rxjs';
 import { DateService } from 'src/app/services/date-service';
+import { CustomTagComponent } from './custom-tag/custom-tag.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-day',
   templateUrl: './day.component.html',
   styleUrls: ['./day.component.scss'],
-  standalone: false
+  standalone: true,
+  imports: [
+    FormsModule,
+    CustomTagComponent
+  ]
 })
 export class DayComponent implements OnInit, OnDestroy {
   private _date?: Date;
