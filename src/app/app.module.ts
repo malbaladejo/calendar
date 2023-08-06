@@ -15,6 +15,8 @@ import { CustomLabelsService } from './services/custom-labels/custom-labels.serv
 import { DateService } from './services/date-service';
 import { CustomLabelsDataService } from './services/custom-labels/custom-labels-data.service';
 import { CustomLabelsDataLocalStorageService } from './services/custom-labels/custom-labels-data-local-storage.service';
+import { CustomLabelsDataRemoteService } from './services/custom-labels/custom-labels-data-remote.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { CustomLabelsDataLocalStorageService } from './services/custom-labels/cu
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     SpecialDaysService,
@@ -34,7 +37,7 @@ import { CustomLabelsDataLocalStorageService } from './services/custom-labels/cu
     JeuneGenevoisProvider,
     SchoolHolidaysService,
     CustomLabelsService,
-    { provide: CustomLabelsDataService, useClass: CustomLabelsDataLocalStorageService },
+    { provide: CustomLabelsDataService, useClass: CustomLabelsDataRemoteService },
     DateService],
   bootstrap: [AppComponent]
 })
