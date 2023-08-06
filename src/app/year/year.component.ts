@@ -15,6 +15,8 @@ export class YearComponent {
   constructor(
     private readonly schoolHolidaysService: SchoolHolidaysService,
     private readonly customLabelsService: CustomLabelsService) {
+
+    this.initializeFirstMonth();
     this.buildMonthsAsync();
   }
 
@@ -30,6 +32,11 @@ export class YearComponent {
     return this.date?.getFullYear() ?? 0;
   }
 
+  private initializeFirstMonth(): void {
+    const currentMonth = (this.date ?? new Date()).getMonth();
+    this._firstMonth = currentMonth < 6 ? 0 : 6;
+  }
+
   private async buildMonthsAsync(): Promise<void> {
     if (!this.date) {
       return;
@@ -38,6 +45,7 @@ export class YearComponent {
     console.log("buildMonthsAsync:" + this.date);
     await this.schoolHolidaysService.ensureDataAsync(this.date);
     await this.customLabelsService.ensureDataAsync(this.date);
+
     this.months.splice(0);
 
     for (let month = this._firstMonth; month < this._firstMonth + 6; month++) {
