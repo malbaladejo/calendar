@@ -15,13 +15,15 @@ import { CustomLabelsService } from './services/custom-labels/custom-labels.serv
 import { DateService } from './services/date-service';
 import { CustomLabelsDataService } from './services/custom-labels/custom-labels-data.service';
 import { CustomLabelsDataLocalStorageService } from './services/custom-labels/custom-labels-data-local-storage.service';
+import { CustomTagComponent } from './day/custom-tag/custom-tag.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DayComponent,
     MonthComponent,
-    YearComponent
+    YearComponent,
+    CustomTagComponent
   ],
   imports: [
     BrowserModule,

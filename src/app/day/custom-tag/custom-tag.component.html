@@ -1,0 +1,13 @@
+<div [class]="['day-of-week', 'relative', selectedColor]">
+    {{dayOfMonth}}
+    <div class="popup" *ngIf="colorSelectorVisible">
+        <div>
+            <div class="grid">
+                <div *ngFor="let color of colors" [class]="['day-of-week', 'tag',  color]" (click)='selectColor(color)'>
+
+                </div>
+            </div>
+            <div (click)="selectColor('')">supprimer</div>
+        </div>
+    </div>
+</div>

@@ -4,6 +4,18 @@ body{
     font-size: 14px;
 }
 
+.relative{
+    position: relative;
+}
+
+.absolute{
+    position: absolute;
+}
+
+.bring-to-front{
+    z-index: 100;
+}
+
 .toolbar{
     
     margin:10px auto;
@@ -49,9 +61,11 @@ body{
     vertical-align: middle;
     height: 20px;
     padding: 4px 0 0 4px;
+    position: relative;
     .cell{
         display: inline-block;
         width: 20px;
+        height: 20px;
         font-weight: bold;
     }
     .cell-day-name{
@@ -63,9 +77,62 @@ body{
         background: transparent;
         border: 0px;
         width: 124px;
+        margin-top: 1px;
     }
     .label:focus{
         outline-style: none;
+    }
+    .special-label{
+        position: absolute;
+        font-size: 8px;
+        font-weight: bold;
+        left:62px;
+        top:0px;
+    }
+
+    .day-of-week{
+        border-radius: 10px;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        vertical-align: middle;
+
+        .popup{
+            position: absolute;
+            z-index: 100;
+            background-color: white;
+            padding: 10px;
+            border: 1px solid lightgray;
+            font-weight: 100;
+        }
+
+        .grid{
+            display: grid;
+            grid-template-columns: auto auto;
+        }
+
+        .tag{
+            margin: 5px;
+        }
+    }
+
+    .red{
+        background-color: rgba(241, 22, 22, 0.911);
+    } 
+    .orange{
+        background-color: orange;
+    } 
+    .yellow{
+        background-color: yellow;
+    } 
+    .green{
+        background-color: rgb(59, 177, 59);
+    } 
+    .blue{
+        background-color: rgb(35, 165, 247);
+    }
+    .purple{
+        background-color: rgb(233, 17, 233);
     }
 }
 
@@ -81,14 +148,14 @@ body{
     background-color: #88bbff;
 }
 
-.special-day.france{
+.france{
     background-color: #ffaaaa;
 }
 
-.special-day.suisse{
+.suisse{
     background-color: #ffe8aa;
 }
 
-.special-day.france.suisse{
+.france.suisse{
     background: linear-gradient(to right, #ffaaaa 0%, #ffaaaa 50%,  #ffe8aa 50%,  #ffe8aa 100%);
 }
