@@ -8,5 +8,5 @@ export abstract class CustomLabelsDataService {
 
   public abstract getDataAsync(year: number): Promise<CustomLabel[]>;
 
-  public abstract setLabelAsync(date: Date, label: string): Promise<void>;
+  public abstract saveDataAsync(year: number, items: CustomLabel[]): Promise<void>;
 }

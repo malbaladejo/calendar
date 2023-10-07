@@ -14,8 +14,9 @@ import { FormsModule } from '@angular/forms';
 import { CustomLabelsService } from './services/custom-labels/custom-labels.service';
 import { DateService } from './services/date-service';
 import { CustomLabelsDataService } from './services/custom-labels/custom-labels-data.service';
-import { CustomLabelsDataLocalStorageService } from './services/custom-labels/custom-labels-data-local-storage.service';
 import { CustomTagComponent } from './day/custom-tag/custom-tag.component';
+import { CustomTagsService } from './services/custom-tags/custom-tags.service';
+import { CustomLabelsDataLocalStorageService } from './services/custom-labels/custom-labels-data-local-storage.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { CustomTagComponent } from './day/custom-tag/custom-tag.component';
     SchoolHolidaysService,
     CustomLabelsService,
     { provide: CustomLabelsDataService, useClass: CustomLabelsDataLocalStorageService },
+    CustomTagsService,
     DateService],
   bootstrap: [AppComponent]
 })

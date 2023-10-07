@@ -22,7 +22,8 @@ export class CustomLabelsDataLocalStorageService extends CustomLabelsDataService
       for (const rawItem of rawItems) {
         items.push({
           date: new Date(rawItem.date),
-          label: rawItem.label
+          label: rawItem.label,
+          tag: rawItem.tag
         })
       }
 
@@ -32,26 +33,7 @@ export class CustomLabelsDataLocalStorageService extends CustomLabelsDataService
     return new Array<CustomLabel>();
   }
 
-  public async setLabelAsync(date: Date, label: string): Promise<void> {
-    const year = date.getFullYear();
-    const items = await this.getDataAsync(year);
-
-    if (!label) {
-      const newItems = items?.filter(l => !this.dateService.dateEquals(l.date, date));
-
-      const json = JSON.stringify(newItems);
-      localStorage.setItem(year.toString(), json);
-      return;
-    }
-
-    const labelItem = items?.find(l => this.dateService.dateEquals(l.date, date));
-    if (!labelItem) {
-      items?.push({ date, label });
-    }
-    else {
-      labelItem.label = label;
-    }
-
+  public async saveDataAsync(year: number, items: CustomLabel[]): Promise<void> {
     const json = JSON.stringify(items);
     localStorage.setItem(year.toString(), json);
   }

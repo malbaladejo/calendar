@@ -1,4 +1,5 @@
 export interface CustomLabel {
     date: Date;
-    label: string;
+    label?: string;
+    tag?: string;
 }

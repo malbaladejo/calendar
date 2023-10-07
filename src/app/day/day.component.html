@@ -5,5 +5,5 @@
         <app-custom-tag [date]="date"></app-custom-tag>
     </div>
     <div class="cell-day-name">{{dayOfWeek}}</div>
-    <input class="label" [(ngModel)]="label">
+    <input class="label" [class.special]="specialLabelVisible" [(ngModel)]="label">
 </div>

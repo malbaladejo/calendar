@@ -11,8 +11,8 @@ export class DateService {
         return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
     }
 
-    public dateEquals(date1: Date, date2: Date | undefined): boolean {
-        if (!date2) {
+    public dateEquals(date1: Date | undefined, date2: Date | undefined): boolean {
+        if (!date1 || !date2) {
             return false;
         }
 
