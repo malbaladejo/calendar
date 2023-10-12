@@ -3,43 +3,33 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EasterProvider } from './services/easter-provider';
-import { SpecialDaysService } from './services/specialdays.service';
-import { DayComponent } from './day/day.component';
-import { MonthComponent } from './month/month.component';
-import { YearComponent } from './year/year.component';
-import { JeuneGenevoisProvider } from './services/jeune-genevois-provider';
-import { SchoolHolidaysService } from './services/school-holidays.service';
 import { FormsModule } from '@angular/forms';
-import { CustomLabelsService } from './services/custom-labels/custom-labels.service';
 import { DateService } from './services/date-service';
-import { CustomLabelsDataService } from './services/custom-labels/custom-labels-data.service';
-import { CustomTagComponent } from './day/custom-tag/custom-tag.component';
-import { CustomTagsService } from './services/custom-tags/custom-tags.service';
-import { CustomLabelsDataLocalStorageService } from './services/custom-labels/custom-labels-data-local-storage.service';
+import { YearsModule } from './years/years.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
+import { ScheduleModule } from './schedule/schedule.module';
+import { UidService } from './services/uid.service';
+import { ArrayService } from './services/array-service';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    DayComponent,
-    MonthComponent,
-    YearComponent,
-    CustomTagComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    YearsModule,
+    ScheduleModule
   ],
   providers: [
-    SpecialDaysService,
-    EasterProvider,
-    JeuneGenevoisProvider,
-    SchoolHolidaysService,
-    CustomLabelsService,
-    { provide: CustomLabelsDataService, useClass: CustomLabelsDataLocalStorageService },
-    CustomTagsService,
-    DateService],
+    DateService,
+    UidService,
+    ArrayService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

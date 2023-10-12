@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { DateService } from '../date-service';
+import { DateService } from '../../../services/date-service';
 import { CustomLabel } from './custom-label';
 import { CustomLabelsDataService } from './custom-labels-data.service';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomLabelsService {
   private customLabels = new Map<number, CustomLabel[]>();
+  private _onChangedSubject = new Subject<Date>();
 
   constructor(private readonly dateService: DateService, private readonly customLabelsDataService: CustomLabelsDataService) { }
 
@@ -21,16 +23,8 @@ export class CustomLabelsService {
     this.customLabels.set(year, yearData);
   }
 
-  public getLabel(date: Date): string | undefined {
-    const year = date.getFullYear();
-
-    try {
-      return this.getItem(date)?.label;
-    }
-    catch (e) {
-      console.error(e);
-      throw e;
-    }
+  public onChanged(): Observable<Date> {
+    return this._onChangedSubject.asObservable();
   }
 
   public getItems(year: number): CustomLabel[] {
@@ -58,6 +52,18 @@ export class CustomLabelsService {
     await this.saveItemAsync(labelItem);
   }
 
+  public async setColorAsync(date: Date, color: string): Promise<void> {
+    let labelItem = this.getItemOrDefault(date);
+    labelItem.color = color;
+    await this.saveItemAsync(labelItem);
+  }
+
+  public async setStyleAsync(date: Date, style: string): Promise<void> {
+    let labelItem = this.getItemOrDefault(date);
+    labelItem.style = style;
+    await this.saveItemAsync(labelItem);
+  }
+
   private getItemOrDefault(date: Date): CustomLabel {
     let labelItem = this.getItem(date);
 
@@ -65,17 +71,22 @@ export class CustomLabelsService {
   }
 
   private async saveItemAsync(item: CustomLabel): Promise<void> {
-    const year = item.date.getFullYear();
-    const items = this.getItems(year);
-    if (await this.removeItemAsync(item, items)) {
-      return;
-    }
+    try {
+      const year = item.date.getFullYear();
+      const items = this.getItems(year);
+      if (await this.removeItemAsync(item, items)) {
+        return;
+      }
 
-    if (await this.addItemAsync(item, items)) {
-      return;
-    }
+      if (await this.addItemAsync(item, items)) {
+        return;
+      }
 
-    await this.updateItemAsync(item, items);
+      await this.updateItemAsync(item, items);
+    }
+    finally {
+      this._onChangedSubject.next(item.date);
+    }
   }
 
   private async removeItemAsync(item: CustomLabel, items: CustomLabel[]): Promise<boolean> {
@@ -107,13 +118,36 @@ export class CustomLabelsService {
   private async updateItemAsync(item: CustomLabel, items: CustomLabel[]): Promise<boolean> {
     const year = item.date.getFullYear();
 
-    items.push(item);
     await this.saveItemsAsync(year, items);
     return true;
   }
 
   private async saveItemsAsync(year: number, items: CustomLabel[]): Promise<void> {
-    const json = JSON.stringify(items);
+    const target = this.cleanItems(year, items);
+    const json = JSON.stringify(target);
     localStorage.setItem(year.toString(), json);
+  }
+
+  private cleanItems(year: number, source: CustomLabel[]): CustomLabel[] {
+    this.saveBeforeClean(year, source);
+    const target = new Array<CustomLabel>();
+
+    for (let item of source) {
+      if (!target.find(l => this.dateService.dateEquals(l.date, item.date))) {
+        target.push(item);
+      }
+    }
+
+    return target;
+  }
+
+  private saveBeforeClean(year: number, source: CustomLabel[]): void {
+    const key = `${year.toString()}-saved-01`;
+    const savedData = localStorage.getItem(key);
+    if (savedData) {
+      return;
+    }
+
+    localStorage.setItem(key, JSON.stringify(source));
   }
 }

@@ -1,0 +1,24 @@
+::host{
+    height: 100%;
+}
+
+.container{
+    display:grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
+}
+
+.spacer{
+    flex: 1 1 auto;
+}
+.navbar-header-item-selected{
+  background: rgba(0,0,0,.2);
+}
+
+.header-title{
+    margin: 0 20px 0 0;
+}
+
+.header-button{
+    margin: 0 10px;
+}

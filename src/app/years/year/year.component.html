@@ -1,0 +1,10 @@
+<div class="container">
+    <div class="toolbar">
+        <button (click)="previous()" class="print-hidden">&lt;&lt;</button>
+        <div class="year">{{year}}</div>
+        <button (click)=" next()" class="print-hidden">&gt;&gt;</button>
+    </div>
+    <div class="calendar">
+        <app-month [date]="month" *ngFor="let month of months"></app-month>
+    </div>
+</div>

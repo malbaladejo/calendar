@@ -1,17 +1,11 @@
 import { Injectable } from '@angular/core';
-import { DateService } from '../date-service';
 import { CustomLabel } from './custom-label';
 import { CustomLabelsDataService } from './custom-labels-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CustomLabelsDataLocalStorageService extends CustomLabelsDataService {
-
-  constructor(private readonly dateService: DateService) {
-    super();
-  }
-
+export class CustomLabelsDataLocalStorageService implements CustomLabelsDataService {
   public async getDataAsync(year: number): Promise<CustomLabel[]> {
     const yearData = localStorage.getItem(year.toString());
     if (yearData) {
@@ -23,7 +17,9 @@ export class CustomLabelsDataLocalStorageService extends CustomLabelsDataService
         items.push({
           date: new Date(rawItem.date),
           label: rawItem.label,
-          tag: rawItem.tag
+          tag: rawItem.tag,
+          color: rawItem.color,
+          style: rawItem.style
         })
       }
 

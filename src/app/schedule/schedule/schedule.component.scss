@@ -1,0 +1,20 @@
+.grid-layout {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 20px;
+    height: 100%;
+    padding: 10px;
+}
+
+.left-side {
+    width: 300px;
+
+    .card {
+        margin-bottom: 20px;
+    }
+}
+
+.active,
+.mat-focus-indicator.active {
+    background-color: lightgray;
+}

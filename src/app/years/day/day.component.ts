@@ -1,26 +1,41 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { CustomLabelsService } from '../services/custom-labels/custom-labels.service';
 import { SchoolHolidaysService } from '../services/school-holidays.service';
 import { SpecialDaysService } from '../services/specialdays.service';
+import { Subscription } from 'rxjs';
+import { DateService } from 'src/app/services/date-service';
 
 @Component({
   selector: 'app-day',
   templateUrl: './day.component.html',
   styleUrls: ['./day.component.scss']
 })
-export class DayComponent {
+export class DayComponent implements OnInit, OnDestroy {
   private _date?: Date;
   private dayInitials = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
   private _isHoliday = false;
   private _isBackToSchool = false;
   private _label = '';
   private _specialLabel = '';
+  private _color = '';
+  private _style = '';
+  private subscription?: Subscription;
+  private _focused = false;
 
   constructor(
     private readonly specialDaysService: SpecialDaysService,
     private readonly schoolHolidaysService: SchoolHolidaysService,
-    private readonly customLabelsService: CustomLabelsService) {
+    private readonly customLabelsService: CustomLabelsService,
+    private readonly dateService: DateService) {
 
+  }
+
+  public ngOnInit(): void {
+    this.subscription = this.customLabelsService.onChanged().subscribe(d => this.onChanged(d));
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   public get date(): Date | undefined {
@@ -41,11 +56,11 @@ export class DayComponent {
   }
 
   public get label(): string {
-    return this._label !== '' ? this._label : this._specialLabel;
-  }
-
-  public get specialLabel(): string {
-    return this._specialLabel;
+    if (this._focused) {
+      return this._label;
+    } else {
+      return this._label !== '' ? this._label : this._specialLabel;
+    }
   }
 
   public set label(value: string) {
@@ -54,6 +69,18 @@ export class DayComponent {
     if (this.date) {
       this.customLabelsService.setLabelAsync(this.date, value);
     }
+  }
+
+  public get specialLabel(): string {
+    return this._specialLabel;
+  }
+
+  public get color(): string {
+    return this._color;
+  }
+
+  public get style(): string {
+    return this._style;
   }
 
   public get isHoliday(): boolean {
@@ -87,7 +114,11 @@ export class DayComponent {
   }
 
   public get specialLabelVisible(): boolean {
-    return this._label !== '' && this._specialLabel !== '';
+    if (!this._focused) {
+      return this._label !== '' && this._specialLabel !== '';
+    }
+
+    return this._specialLabel !== '';
   }
 
   public get isFrance(): boolean {
@@ -103,6 +134,27 @@ export class DayComponent {
     }
 
     return this.specialDaysService.getLabel(this.date)?.suisse ?? false;
+  }
+
+  public onLabelFocusInEvent(): void {
+    this._focused = true;
+    if (!this._label) {
+      this._label = this._specialLabel;
+    }
+  }
+
+  public onLabelFocusOutEvent(): void {
+    this._focused = false;
+
+    if (this._label === this._specialLabel) {
+      this._label = '';
+    }
+  }
+
+  private onChanged(date: Date): void {
+    if (this.dateService.dateEquals(this._date, date)) {
+      this.buildLabel();
+    }
   }
 
   private async loadHolidayAsync(): Promise<void> {
@@ -159,7 +211,10 @@ export class DayComponent {
       return false;
     }
 
-    this._label = this.customLabelsService.getLabel(this.date) ?? '';
+    const item = this.customLabelsService.getItem(this.date);
+    this._label = item?.label ?? '';
+    this._color = item?.color ?? '';
+    this._style = item?.style ?? '';
     if (this._label) {
       return true;
     }

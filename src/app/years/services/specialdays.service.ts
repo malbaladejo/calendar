@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DateService } from './date-service';
+import { DateService } from '../../services/date-service';
 import { EasterProvider } from './easter-provider';
 import { JeuneGenevoisProvider } from './jeune-genevois-provider';
 import { SpecialDay } from './special-day';
@@ -30,15 +30,16 @@ export class SpecialDaysService {
 
     const specilasDays = new Array<SpecialDay>();
     specilasDays.push(SpecialDay.create(1, 1, year, 'JOUR DE L\'AN', true, true));
-    specilasDays.push(SpecialDay.create(2, 1, year, 'LO', false, true));
+
+    this.ensureLOSpecialDays(2, 1, year, specilasDays);
     specilasDays.push(SpecialDay.create(1, 5, year, 'FETE DU TRAVAIL', true, false));
     specilasDays.push(SpecialDay.create(8, 5, year, 'ARMISTICE 1945', true, false));
     specilasDays.push(SpecialDay.create(1, 8, year, 'FETE NAT. SUISSE', false, true));
     specilasDays.push(SpecialDay.create(1, 11, year, 'TOUSSAINT', true, false));
     specilasDays.push(SpecialDay.create(11, 11, year, 'ARMISTICE 1918', true, false));
-    specilasDays.push(SpecialDay.create(24, 12, year, 'LO', false, true));
+    this.ensureLOSpecialDays(24, 12, year, specilasDays);
     specilasDays.push(SpecialDay.create(25, 12, year, 'JOUR DE NOEL', true, true));
-    specilasDays.push(SpecialDay.create(26, 12, year, 'LO', false, true));
+    this.ensureLOSpecialDays(26, 12, year, specilasDays);
     specilasDays.push(SpecialDay.create(31, 12, year, 'RESTAURATION', false, true));
 
     const easterDate = this.easterProvider.getEasterDate(year);
@@ -53,5 +54,14 @@ export class SpecialDaysService {
     this.specilasDays.set(year, specilasDays);
 
     return specilasDays;
+  }
+
+  private ensureLOSpecialDays(day: number, month: number, year: number, specilasDays: Array<SpecialDay>): void {
+    const date = new Date(year, month - 1, day);
+    if (this.dateService.isWeekend(date)) {
+      return;
+    }
+
+    specilasDays.push(SpecialDay.create(day, month, year, 'LO', false, true));
   }
 }

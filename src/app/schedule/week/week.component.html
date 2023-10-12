@@ -1,0 +1,10 @@
+<div class="main-content">
+    <div class="time-slots">
+        <div *ngFor="let time of times;let i=index;" class="time-slot">
+            {{time | date:'HH:mm'}}
+        </div>
+    </div>
+    <div class="days-of-week">
+        <app-weekly-day *ngFor="let dayOfWeek of daysOfWeek" [times]="times" [dayOfWeek]="dayOfWeek"></app-weekly-day>
+    </div>
+</div>

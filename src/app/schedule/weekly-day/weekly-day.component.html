@@ -1,0 +1,7 @@
+<div class="container">
+    <div class="header">{{dayName}}</div>
+
+    <div *ngFor="let time of times;let i=index;" class="time-slot" [class.time-slot-hour]="i % 2 === 1">
+
+    </div>
+</div>

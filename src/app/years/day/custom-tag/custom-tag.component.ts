@@ -1,8 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { CustomTagsService } from 'src/app/services/custom-tags/custom-tags.service';
+import { CustomTagsService } from '../../services/custom-tags/custom-tags.service';
 import { Subscription } from 'rxjs';
-import { DateService } from 'src/app/services/date-service';
-import { CustomLabelsService } from 'src/app/services/custom-labels/custom-labels.service';
+import { DateService } from '../../../services/date-service';
+import { CustomLabelsService } from '../../services/custom-labels/custom-labels.service';
 
 @Component({
   selector: 'app-custom-tag',
@@ -12,7 +12,8 @@ import { CustomLabelsService } from 'src/app/services/custom-labels/custom-label
 export class CustomTagComponent implements OnInit, OnDestroy {
   private _date?: Date;
   private _colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
-  private _selectedColor = '';
+  private _styles = ['bold', 'italic'];
+  private _tagColor = '';
   private _colorSelectorVisible = false;
 
   private customTagsSubscription?: Subscription;
@@ -32,7 +33,6 @@ export class CustomTagComponent implements OnInit, OnDestroy {
     });
   }
 
-
   public ngOnDestroy(): void {
     this.customTagsSubscription?.unsubscribe();
   }
@@ -46,7 +46,8 @@ export class CustomTagComponent implements OnInit, OnDestroy {
     this._date = value;
 
     if (this.date) {
-      this.selectedColor = this.customLabelService.getItem(this.date)?.tag ?? '';
+      const item = this.customLabelService.getItem(this.date);
+      this.tagColor = item?.tag ?? '';
     }
   }
 
@@ -61,12 +62,16 @@ export class CustomTagComponent implements OnInit, OnDestroy {
     return this._colors;
   }
 
-  public get selectedColor(): string {
-    return this._selectedColor;
+  public get styles(): string[] {
+    return this._styles;
   }
 
-  public set selectedColor(value: string) {
-    this._selectedColor = value;
+  public get tagColor(): string {
+    return this._tagColor;
+  }
+
+  public set tagColor(value: string) {
+    this._tagColor = value;
   }
 
   public get colorSelectorVisible(): boolean {
@@ -84,12 +89,28 @@ export class CustomTagComponent implements OnInit, OnDestroy {
     }
   }
 
-  public async selectColorAsync(color: string): Promise<void> {
+  public async selectTagColorAsync(color: string): Promise<void> {
     if (!this.date) {
       return;
     }
 
-    this.selectedColor = color;
+    this.tagColor = color;
     await this.customLabelService.setTagAsync(this.date, color);
+  }
+
+  public async selectForegroundColorAsync(color: string): Promise<void> {
+    if (!this.date) {
+      return;
+    }
+
+    await this.customLabelService.setColorAsync(this.date, 'color-' + color);
+  }
+
+  public async selectStyleAsync(style: string): Promise<void> {
+    if (!this.date) {
+      return;
+    }
+
+    await this.customLabelService.setStyleAsync(this.date, style);
   }
 }

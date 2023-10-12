@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { CustomLabelsService } from '../services/custom-labels/custom-labels.service';
 import { SchoolHolidaysService } from '../services/school-holidays.service';
 

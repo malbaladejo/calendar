@@ -1,0 +1,27 @@
+.main-content {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    margin: auto;
+
+    .days-of-week {
+        vertical-align: top;
+        border: solid black 1px;
+        border-right: 0px;
+        border-bottom: 0px;
+
+        display: flex;
+        flex-direction: row;
+    }
+
+    .time-slots {
+        margin-top: 30px;
+    }
+
+    .time-slot {
+        font-size: 14px;
+        padding: 5px;
+        margin: 0;
+        text-align: right;
+        height: 21px;
+    }
+}

@@ -1,124 +1,144 @@
-/* You can add global styles to this file, and also import other style files */
-body{
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
 }
 
-.relative{
+.relative {
     position: relative;
 }
 
-.absolute{
+.absolute {
     position: absolute;
 }
 
-.bring-to-front{
+.bring-to-front {
     z-index: 100;
 }
 
-.curson-pointer{
+.curson-pointer {
     cursor: pointer;
 }
 
-.full-width{
+.full-width {
     width: 100%;
 }
 
-.full-height{
+.full-height {
     height: 100%;
 }
 
-.toolbar{
-    
-    margin:10px auto;
-    width: 200px; 
+.horizontal-center {
+    margin: auto;
+}
 
-    .year{
+@media print {
+    .print-hidden {
+        display: none !important;
+    }
+}
+
+.toolbar {
+
+    margin: 10px auto;
+    width: 200px;
+
+    .year {
         margin: 0 5px;
         display: inline-block;
         font-size: 20px;
     }
 }
 
-.calendar{
-    border:solid black 1px;
-    border-top: 1px;    
-    border-right: 1px;    
-    border-bottom: 0px;   
-    width: 1162px; 
-    margin:auto;
+.calendar {
+    border: solid black 1px;
+    border-top: 1px;
+    border-right: 1px;
+    border-bottom: 0px;
+    width: 1162px;
+    margin: auto;
 }
 
-.month{
-    h1{
+.month {
+    h1 {
         font-size: 14px;
         padding: 5px;
         background-color: lightgray;
         margin: 0;
         text-align: center;
-        border-bottom:solid black 1px;
+        border-bottom: solid black 1px;
     }
 
     vertical-align: top;
     display: inline-block;
     width: 190px;
     border:solid black 1px;
-    border-left: solid black 2px;    
-    border-bottom: 0px;    
+    border-left: solid black 2px;
+    border-bottom: 0px;
 }
 
-.day{    
-    
+.day {
+
     display: grid;
     grid-template-columns: 23px 30px 1fr;
-    border-bottom:solid darkgray 1px;
+    border-bottom: solid darkgray 1px;
     vertical-align: middle;
     height: 20px;
-    position: relative;    
+    position: relative;
 
-    .cell{
+    .cell {
         width: 20px;
         height: 20px;
         font-weight: bold;
     }
-    .cell-day-name{
+
+    .cell-day-name {
         width: 35px;
         margin-top: 2px;
         margin-right: 2px;
     }
-    .label{
+
+    .label {
         background: transparent;
         border: 0px;
         width: 124px;
         margin-top: 1px;
         padding: 0px;
     }
-    .label:focus{
+
+    .label:focus {
         outline-style: none;
     }
-    .special{
+
+    .special {
         margin-top: 6px;
     }
-    .special-label{
+
+    .special-label {
         position: absolute;
         font-size: 8px;
         font-weight: bold;
-        left:53px;
-        top:0px;
+        left: 53px;
+        top: 0px;
     }
 
-    .number-of-day{
+    .number-of-day {
         margin: 1px auto;
     }
-    
-    .day-of-week{
+
+    .day-of-week {
         border-radius: 9px;
         width: 18px;
         height: 18px;
         text-align: center;
         vertical-align: middle;
 
-        .popup{
+        .popup {
             position: absolute;
             z-index: 100;
             background-color: white;
@@ -127,12 +147,12 @@ body{
             font-weight: 100;
         }
 
-        .grid{
+        .grid {
             display: grid;
             grid-template-columns: auto auto;
         }
 
-        .tag{            
+        .tag {
             margin: 10px;
             border-radius: 15px;
             width: 30px;
@@ -141,46 +161,83 @@ body{
         }
     }
 
-    .red{
+    .bold {
+        font-weight: bold;
+    }
+
+    .italic {
+        font-style: italic;
+    }
+
+    .red {
         background-color: rgba(241, 22, 22, 0.911);
-    } 
-    .orange{
+    }
+
+    .orange {
         background-color: orange;
-    } 
-    .yellow{
+    }
+
+    .yellow {
         background-color: yellow;
-    } 
-    .green{
+    }
+
+    .green {
         background-color: rgb(59, 177, 59);
-    } 
-    .blue{
+    }
+
+    .blue {
         background-color: rgb(35, 165, 247);
     }
-    .purple{
+
+    .purple {
         background-color: rgb(233, 17, 233);
+    }
+
+    .color-red {
+        color: rgba(241, 22, 22, 0.911);
+    }
+
+    .color-orange {
+        color: orange;
+    }
+
+    .color-yellow {
+        color: yellow;
+    }
+
+    .color-green {
+        color: rgb(59, 177, 59);
+    }
+
+    .color-blue {
+        color: rgb(35, 165, 247);
+    }
+
+    .color-purple {
+        color: rgb(233, 17, 233);
     }
 }
 
-.holiday{
+.holiday {
     background: #b1ff8f;
 }
 
-.saturday{
+.saturday {
     background-color: #e8e8ff;
 }
 
-.sunday{
+.sunday {
     background-color: #88bbff;
 }
 
-.france{
+.france {
     background-color: #ffaaaa;
 }
 
-.suisse{
+.suisse {
     background-color: #ffe8aa;
 }
 
-.france.suisse{
-    background: linear-gradient(to right, #ffaaaa 0%, #ffaaaa 50%,  #ffe8aa 50%,  #ffe8aa 100%);
+.france.suisse {
+    background: linear-gradient(to right, #ffaaaa 0%, #ffaaaa 50%, #ffe8aa 50%, #ffe8aa 100%);
 }

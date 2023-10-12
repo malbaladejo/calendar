@@ -1,0 +1,41 @@
+<div [class]="['day-of-week', 'relative', tagColor]" (click)="toggleColorSelector()">
+    <div class="curson-pointer number-of-day">
+        {{dayOfMonth}}
+    </div>
+    <div class="popup" *ngIf="colorSelectorVisible">
+        <div class="popup-container">
+            <div class="grid-column">
+                <b>Sticker</b>
+                <div class="grid">
+                    <div *ngFor="let color of colors" [class]="['curson-pointer','day-of-week', 'tag',  color]"
+                        (click)='selectTagColorAsync(color)'>
+
+                    </div>
+                </div>
+                <button mat-raised-button color="primary" (click)="selectTagColorAsync('')">supprimer</button>
+            </div>
+            <mat-divider vertical="true"></mat-divider>
+            <div class="grid-column">
+                <b>Fond</b>
+                <div class="grid">
+                    <div *ngFor="let color of colors" [class]="['curson-pointer','day-of-week', 'tag', color]"
+                        (click)="selectForegroundColorAsync(color)">
+
+                    </div>
+                </div>
+                <button mat-raised-button color="primary" (click)="selectForegroundColorAsync('')">supprimer</button>
+            </div>
+            <mat-divider vertical="true"></mat-divider>
+            <div class="grid-column">
+                <b>Style</b>
+                <div class="buttons-container">
+                    <button mat-raised-button *ngFor="let style of styles"
+                        [class]="['curson-pointer', 'horizontal-center']" (click)="selectStyleAsync(style)">
+                        {{style}}
+                    </button>
+                </div>
+                <button mat-raised-button color="primary" (click)="selectStyleAsync('')">supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>
