@@ -1,5 +1,5 @@
 <div class="day" [class.saturday]="isSaturday" [class.sunday]="isSunday" [class.france]="isFrance"
-    [class.suisse]="isSuisse" [class.holiday]="isHoliday">
+    [class.suisse]="isSuisse" [class.holiday]="isHoliday" [class.passed]="isPassed">
     <div class="special-label hidden" *ngIf="specialLabelVisible">{{specialLabel}}</div>
     <div class="cell">
         <app-custom-tag [date]="date"></app-custom-tag>

@@ -33,8 +33,9 @@ export class YearComponent {
   }
 
   private initializeFirstMonth(): void {
-    const currentMonth = (this.date ?? new Date()).getMonth();
-    this._firstMonth = currentMonth < 6 ? 0 : 6;
+    this.date = this.addMonth(new Date(), -1);
+    this._firstMonth = this.date.getMonth();
+    this.date = new Date(this.date.getFullYear(), this._firstMonth, 1);
   }
 
   private async buildMonthsAsync(): Promise<void> {
@@ -54,36 +55,36 @@ export class YearComponent {
     }
   }
 
-  public async previous(): Promise<void> {
+  public previousMonth(): Promise<void> {
+    return this.navigateToMonth(-1);
+  }
+
+  public previousSemester(): Promise<void> {
+    return this.navigateToMonth(-6);
+  }
+
+  public nextMonth(): Promise<void> {
+    return this.navigateToMonth(1);
+  }
+
+  public nextSemester(): Promise<void> {
+    return this.navigateToMonth(6);
+  }
+
+  private async navigateToMonth(nbMonthes: number): Promise<void> {
     if (!this.date) {
       return;
     }
 
-    if (this._firstMonth === 0) {
-      this._firstMonth = 6;
-      this.date = new Date(this.date.getFullYear() - 1, 0, 1);
-    }
-    else {
-      this._firstMonth = 0;
-    }
+    console.info(`navigateToMonth(${this.date}, ${nbMonthes})`);
+
+    this.date = this.addMonth(this.date, nbMonthes);
+    this._firstMonth = this.date.getMonth();
 
     await this.buildMonthsAsync();
   }
 
-  public async next(): Promise<void> {
-    if (!this.date) {
-      return;
-    }
-
-    if (this._firstMonth === 0) {
-      this._firstMonth = 6;
-    }
-    else {
-      this._firstMonth = 0;
-      this.date = new Date(this.date.getFullYear() + 1, 0, 1);
-    }
-
-    console.log("next:" + this.date);
-    await this.buildMonthsAsync();
+  private addMonth(date: Date, nbOfMonthes: number): Date {
+    return new Date(date.setMonth(date.getMonth() + nbOfMonthes));
   }
 }

@@ -46,7 +46,12 @@ body {
 .toolbar {
 
     margin: 10px auto;
-    width: 200px;
+    width: 250px;
+
+    .nav-button {
+        margin-right: 10px;
+        display: inline-block;
+    }
 
     .year {
         margin: 0 5px;
@@ -60,8 +65,7 @@ body {
     border-top: 1px;
     border-right: 1px;
     border-bottom: 0px;
-    width: 1162px;
-    margin: auto;
+    justify-self: center;
 }
 
 .month {
@@ -76,7 +80,7 @@ body {
 
     vertical-align: top;
     display: inline-block;
-    width: 190px;
+    width: 300px;
     border:solid black 1px;
     border-left: solid black 2px;
     border-bottom: 0px;
@@ -218,24 +222,50 @@ body {
     }
 }
 
+$passed-color: #969696;
+
+.passed {
+    background: linear-gradient(to bottom left, #fff calc(50% - 1px), $passed-color, #fff calc(50% + 1px));
+}
+
 .holiday {
     background: #b1ff8f;
+}
+
+.passed.holiday {
+    background: linear-gradient(to bottom left, #b1ff8f calc(50% - 1px), $passed-color, #b1ff8f calc(50% + 1px));
 }
 
 .saturday {
     background-color: #e8e8ff;
 }
 
+.passed.saturday {
+    background: linear-gradient(to bottom left, #e8e8ff calc(50% - 1px), $passed-color, #e8e8ff calc(50% + 1px));
+}
+
 .sunday {
     background-color: #88bbff;
+}
+
+.passed.sunday {
+    background: linear-gradient(to bottom left, #88bbff calc(50% - 1px), $passed-color, #88bbff calc(50% + 1px));
 }
 
 .france {
     background-color: #ffaaaa;
 }
 
-.suisse {
+.passed.france {
+    background: linear-gradient(to bottom left, #ffaaaa calc(50% - 1px), $passed-color, #ffaaaa calc(50% + 1px));
+}
+
+.passed.suisse {
     background-color: #ffe8aa;
+}
+
+.passed.suisse {
+    background: linear-gradient(to bottom left, #ffe8aa calc(50% - 1px), $passed-color, #ffe8aa calc(50% + 1px));
 }
 
 .france.suisse {

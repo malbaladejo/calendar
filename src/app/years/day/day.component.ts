@@ -113,6 +113,14 @@ export class DayComponent implements OnInit, OnDestroy {
     return this.date.getDay() == 0;
   }
 
+  public get isPassed(): boolean {
+    if (!this.date) {
+      return false;
+    }
+
+    return this.date < new Date();
+  }
+
   public get specialLabelVisible(): boolean {
     if (!this._focused) {
       return this._label !== '' && this._specialLabel !== '';
