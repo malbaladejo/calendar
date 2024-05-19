@@ -15,18 +15,24 @@ import { CustomTagComponent } from './day/custom-tag/custom-tag.component';
 import { CustomTagsService } from './services/custom-tags/custom-tags.service';
 import { CustomLabelsDataLocalStorageService } from './services/custom-labels/custom-labels-data-local-storage.service';
 import { MaterialModule } from '../material.module';
+import { YearNavigationComponent } from './year-navigation/year-navigation.component';
+import { YearNavigationService } from './services/year-navigation.service';
 
 @NgModule({
   declarations: [
     DayComponent,
     MonthComponent,
     YearComponent,
-    CustomTagComponent
+    CustomTagComponent,
+    YearNavigationComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     MaterialModule
+  ],
+  exports: [
+    YearNavigationComponent
   ],
   providers: [
     SpecialDaysService,
@@ -35,7 +41,8 @@ import { MaterialModule } from '../material.module';
     SchoolHolidaysService,
     CustomLabelsService,
     { provide: CustomLabelsDataService, useClass: CustomLabelsDataLocalStorageService },
-    CustomTagsService
+    CustomTagsService,
+    YearNavigationService
   ]
 })
 export class YearsModule { }

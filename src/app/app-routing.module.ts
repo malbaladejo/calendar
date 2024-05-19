@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { YearComponent } from './years/year/year.component';
 import { ScheduleComponent } from './schedule/schedule/schedule.component';
 import { WeekComponent } from './schedule/week/week.component';
+import { YearNavigationComponent } from './years/year-navigation/year-navigation.component';
 
 const routes: Routes = [
   { path: 'agenda', component: YearComponent },
@@ -13,7 +14,7 @@ const routes: Routes = [
       { path: ':id', component: WeekComponent }
     ]
   },
-  { path: '', redirectTo: '/agenda', pathMatch: 'full' }, // redirect to 
+  { path: '', redirectTo: 'agenda', pathMatch: 'full' }, // redirect to 
 ];
 
 @NgModule({

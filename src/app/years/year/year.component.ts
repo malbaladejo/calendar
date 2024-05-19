@@ -1,23 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { CustomLabelsService } from '../services/custom-labels/custom-labels.service';
 import { SchoolHolidaysService } from '../services/school-holidays.service';
+import { YearNavigationService } from '../services/year-navigation.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-year',
   templateUrl: './year.component.html',
   styleUrls: ['./year.component.scss']
 })
-export class YearComponent {
+export class YearComponent implements OnDestroy {
   private _date?: Date = new Date();
   private _firstMonth = 0;
+  private readonly _dateSubscription: Subscription;
+
   public months = new Array<Date>();
 
   constructor(
     private readonly schoolHolidaysService: SchoolHolidaysService,
-    private readonly customLabelsService: CustomLabelsService) {
+    private readonly customLabelsService: CustomLabelsService,
+    private readonly yearNavigationService: YearNavigationService) {
 
     this.initializeFirstMonth();
     this.buildMonthsAsync();
+
+    this._dateSubscription = this.yearNavigationService.date$.subscribe(d => this.onDateChange(d));
+
+    this.testReflection<MyClass>((t) => t.id);
+  }
+
+  private testReflection<T>(prop: (t: T) => void) {
+    const func = prop.toString();
+    const result = /^[^{]+{\s+return\s{1}[a-zA-Z]+\.(?<propertyName>[^;]*);\s+}$/gm.exec(func);
+    console.log(result?.groups);
+  }
+
+  public ngOnDestroy(): void {
+    this._dateSubscription.unsubscribe();
   }
 
   public get date(): Date | undefined {
@@ -32,9 +51,24 @@ export class YearComponent {
     return this.date?.getFullYear() ?? 0;
   }
 
+  private onDateChange(newDate: Date | undefined): void {
+    if (!newDate) {
+      this.initializeFirstMonth();
+    } else {
+      this._firstMonth = newDate.getMonth();
+      this.date = newDate;
+    }
+
+    this.buildMonthsAsync();
+  }
+
   private initializeFirstMonth(): void {
-    const currentMonth = (this.date ?? new Date()).getMonth();
+    const currentDate = this.date ?? new Date();
+
+    const currentMonth = currentDate.getMonth();
     this._firstMonth = currentMonth < 6 ? 0 : 6;
+
+    this.yearNavigationService.date = new Date(currentDate.getFullYear(), this._firstMonth, 1);
   }
 
   private async buildMonthsAsync(): Promise<void> {
@@ -53,37 +87,26 @@ export class YearComponent {
       this.months.push(monthVM);
     }
   }
+}
 
-  public async previous(): Promise<void> {
-    if (!this.date) {
-      return;
-    }
+class MyClass {
 
-    if (this._firstMonth === 0) {
-      this._firstMonth = 6;
-      this.date = new Date(this.date.getFullYear() - 1, 0, 1);
-    }
-    else {
-      this._firstMonth = 0;
-    }
+  constructor(public id: string, public name: string) {
 
-    await this.buildMonthsAsync();
+
   }
 
-  public async next(): Promise<void> {
-    if (!this.date) {
-      return;
-    }
-
-    if (this._firstMonth === 0) {
-      this._firstMonth = 6;
-    }
-    else {
-      this._firstMonth = 0;
-      this.date = new Date(this.date.getFullYear() + 1, 0, 1);
-    }
-
-    console.log("next:" + this.date);
-    await this.buildMonthsAsync();
+  private _item = new MySubClass();
+  public get item(): MySubClass {
+    return this._item;
   }
+
+  public set item(value: MySubClass) {
+    this._item = value;
+  }
+}
+
+class MySubClass {
+  public test = '';
+  public num = 0;
 }
