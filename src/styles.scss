@@ -110,7 +110,7 @@ body {
     .label {
         background: transparent;
         border: 0px;
-        width: 124px;
+        width: 95%;
         margin-top: 1px;
         padding: 0px;
     }
@@ -222,7 +222,7 @@ body {
     }
 }
 
-$passed-color: #969696;
+$passed-color: #636363;
 
 .passed {
     background: linear-gradient(to bottom left, #fff calc(50% - 1px), $passed-color, #fff calc(50% + 1px));
