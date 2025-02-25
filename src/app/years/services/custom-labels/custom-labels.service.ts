@@ -15,6 +15,12 @@ export class CustomLabelsService {
 
   public async ensureDataAsync(date: Date): Promise<void> {
     const year = date.getFullYear();
+    await this.ensureDataForYeaerAsync(year - 1);
+    await this.ensureDataForYeaerAsync(year);
+    await this.ensureDataForYeaerAsync(year + 1);
+  }
+
+  private async ensureDataForYeaerAsync(year: number): Promise<void> {
     if (this.customLabels.get(year)) {
       return;
     }
