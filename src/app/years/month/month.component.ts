@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { SettingsService } from '../services/settings.service';
 
 @Component({
   selector: 'app-month',
@@ -7,10 +8,19 @@ import { Component, Input } from '@angular/core';
 })
 export class MonthComponent {
   private _date?: Date;
+  private _numberOfMonthesPerScreen = 6;
   public days: Array<Date | undefined> = new Array<Date | undefined>();
   private monthNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
     "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"
   ];
+
+  constructor(settingsService: SettingsService) {
+    this._numberOfMonthesPerScreen = settingsService.numberOfMonthesPerScreen();
+  }
+
+  public get numberOfMonthesPerScreen(): number {
+    return this._numberOfMonthesPerScreen;
+  }
 
   public get date(): Date | undefined {
     return this._date;

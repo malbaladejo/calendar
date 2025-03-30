@@ -1,10 +1,13 @@
 <div class="container">
-    <div class="toolbar">
-        <button (click)="previousSemester()" class="nav-button print-hidden">&lt;&lt;</button>
-        <button (click)="previousMonth()" class="nav-button print-hidden">&lt;</button>
-        <div class="year">{{year}}</div>
-        <button (click)=" nextMonth()" class="nav-button print-hidden">&gt;</button>
-        <button (click)=" nextSemester()" class="nav-button print-hidden">&gt;&gt;</button>
+    <div class="grid-1fr-auto">
+        <div class="toolbar">
+            <button (click)="previousSemester()" class="inline-block margin-0-10-0-0 print-hidden">&lt;&lt;</button>
+            <button (click)="previousMonth()" class="inline-block margin-0-10-0-0 print-hidden">&lt;</button>
+            <div class="year">{{year}}</div>
+            <button (click)=" nextMonth()" class="inline-block margin-0-10-0-10 print-hidden">&gt;</button>
+            <button (click)=" nextSemester()" class="inline-block print-hidden">&gt;&gt;</button>
+        </div>
+        <div>v2.4.3</div>
     </div>
     <div class="calendar">
         <app-month [date]="month" *ngFor="let month of months"></app-month>

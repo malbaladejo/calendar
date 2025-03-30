@@ -2,3 +2,20 @@
     width: 100%;
     display: grid;
 }
+
+.toolbar {
+
+    margin: 10px auto;
+    width: 250px;
+
+    .nav-button-right-margin {
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .year {
+        margin: 0 5px;
+        display: inline-block;
+        font-size: 20px;
+    }
+}

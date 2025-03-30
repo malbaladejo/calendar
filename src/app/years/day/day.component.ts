@@ -12,7 +12,8 @@ import { DateService } from 'src/app/services/date-service';
 })
 export class DayComponent implements OnInit, OnDestroy {
   private _date?: Date;
-  private dayInitials = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+  private dayInitialsShort = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+  private dayInitials = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
   private _isHoliday = false;
   private _isBackToSchool = false;
   private _label = '';

@@ -1,10 +1,10 @@
 <div class="day" [class.saturday]="isSaturday" [class.sunday]="isSunday" [class.france]="isFrance"
     [class.suisse]="isSuisse" [class.holiday]="isHoliday" [class.passed]="isPassed">
     <div class="special-label hidden" *ngIf="specialLabelVisible">{{specialLabel}}</div>
-    <div class="cell">
+    <div class="cell margin-auto">
         <app-custom-tag [date]="date"></app-custom-tag>
     </div>
-    <div class="cell-day-name">{{dayOfWeek}}</div>
+    <div class="cell-day-name bold margin-auto-zero">{{dayOfWeek}}</div>
     <input [class]="['label', color, style]" [class.special]="specialLabelVisible" [(ngModel)]="label"
         (focus)="onLabelFocusInEvent()" (focusout)="onLabelFocusOutEvent()">
 </div>

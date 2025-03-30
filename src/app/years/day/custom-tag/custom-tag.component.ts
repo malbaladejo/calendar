@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CustomTagsService } from '../../services/custom-tags/custom-tags.service';
 import { Subscription } from 'rxjs';
 import { DateService } from '../../../services/date-service';
@@ -36,6 +36,9 @@ export class CustomTagComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.customTagsSubscription?.unsubscribe();
   }
+
+  @ViewChild('dayNumber', { static: false })
+  public dayNumberElRef?: ElementRef;
 
   public get date(): Date | undefined {
     return this._date;
@@ -83,6 +86,12 @@ export class CustomTagComponent implements OnInit, OnDestroy {
   }
 
   public toggleColorSelector(): void {
+
+    if (this.dayNumberElRef) {
+      const { x, y } = this.dayNumberElRef.nativeElement.getBoundingClientRect();
+      console.log(`${x}, ${y}`)
+    }
+
     this.colorSelectorVisible = !this.colorSelectorVisible;
     if (this.colorSelectorVisible && this.date) {
       this.customTagsService.openTag(this.date);

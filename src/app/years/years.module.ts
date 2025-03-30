@@ -15,6 +15,7 @@ import { CustomTagComponent } from './day/custom-tag/custom-tag.component';
 import { CustomTagsService } from './services/custom-tags/custom-tags.service';
 import { CustomLabelsDataLocalStorageService } from './services/custom-labels/custom-labels-data-local-storage.service';
 import { MaterialModule } from '../material.module';
+import { SettingsService } from './services/settings.service';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MaterialModule } from '../material.module';
     EasterProvider,
     JeuneGenevoisProvider,
     SchoolHolidaysService,
+    SettingsService,
     CustomLabelsService,
     { provide: CustomLabelsDataService, useClass: CustomLabelsDataLocalStorageService },
     CustomTagsService

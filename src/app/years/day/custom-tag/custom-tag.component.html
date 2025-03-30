@@ -1,5 +1,5 @@
 <div [class]="['day-of-week', 'relative', tagColor]" (click)="toggleColorSelector()">
-    <div class="curson-pointer number-of-day">
+    <div #dayNumber class="curson-pointer number-of-day">
         {{dayOfMonth}}
     </div>
     <div class="popup" *ngIf="colorSelectorVisible">

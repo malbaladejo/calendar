@@ -1,0 +1,97 @@
+.day {
+
+    display: grid;
+    grid-template-columns: 23px 70px 1fr;
+    border-bottom: solid darkgray 1px;
+    vertical-align: middle;
+    height: 23px;
+    position: relative;
+
+    .cell {
+        width: 20px;
+        height: 27px;
+        font-weight: bold;
+    }
+
+    .cell-day-name {
+
+        margin-right: 2px;
+    }
+
+    .label {
+        background: transparent;
+        border: 0px;
+        margin-top: 1px;
+        margin-right: 4px;
+        padding: 0px;
+        font-size: 15px;
+    }
+
+    .label:focus {
+        outline-style: none;
+    }
+
+    .special {
+        margin-top: 6px;
+    }
+
+    .special-label {
+        position: absolute;
+        font-size: 8px;
+        font-weight: bold;
+        left: 53px;
+        top: 0px;
+    }
+
+
+}
+
+$passed-color: #636363;
+
+.passed {
+    background: linear-gradient(to bottom left, #fff calc(50% - 1px), $passed-color, #fff calc(50% + 1px));
+}
+
+.holiday {
+    background: #b1ff8f;
+}
+
+.passed.holiday {
+    background: linear-gradient(to bottom left, #b1ff8f calc(50% - 1px), $passed-color, #b1ff8f calc(50% + 1px));
+}
+
+.saturday {
+    background-color: #e8e8ff;
+}
+
+.passed.saturday {
+    background: linear-gradient(to bottom left, #e8e8ff calc(50% - 1px), $passed-color, #e8e8ff calc(50% + 1px));
+}
+
+.sunday {
+    background-color: #88bbff;
+}
+
+.passed.sunday {
+    background: linear-gradient(to bottom left, #88bbff calc(50% - 1px), $passed-color, #88bbff calc(50% + 1px));
+}
+
+.france {
+    background-color: #ffaaaa;
+}
+
+.passed.france {
+    background: linear-gradient(to bottom left, #ffaaaa calc(50% - 1px), $passed-color, #ffaaaa calc(50% + 1px));
+}
+
+.suisse {
+    background-color: #ffe8aa;
+}
+
+.passed.suisse {
+    background: linear-gradient(to bottom left, #ffe8aa calc(50% - 1px), $passed-color, #ffe8aa calc(50% + 1px));
+}
+
+.france.suisse {
+    background: linear-gradient(to right, #ffaaaa 0%, #ffaaaa 50%, #ffe8aa 50%, #ffe8aa 100%);
+}

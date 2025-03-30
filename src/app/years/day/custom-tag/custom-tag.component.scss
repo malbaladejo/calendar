@@ -1,4 +1,9 @@
-.popup-container {
+:host {
+    display: block;
+    height: 100%;
+}
+
+popup-container {
     display: grid;
     grid-template-columns: auto auto auto auto auto;
 }
@@ -7,7 +12,6 @@
     display: grid;
     grid-template-rows: auto 1fr auto;
     row-gap: 10px;
-    width: 100px;
     margin: 0 10px;
 }
 
@@ -16,4 +20,38 @@
         margin-bottom: 10px;
         width: 100%;
     }
+}
+
+.day-of-week {
+    border-radius: 9px;
+    width: 18px;
+    height: 100%;
+    text-align: center;
+
+    .popup {
+        position: absolute;
+        z-index: 100;
+        background-color: white;
+        padding: 10px;
+        border: 1px solid lightgray;
+        font-weight: 100;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: auto auto auto;
+    }
+
+    .tag {
+        margin: 10px;
+        border-radius: 15px;
+        width: 30px;
+        height: 30px;
+        box-shadow: 3px 3px 5px gray;
+    }
+}
+
+.number-of-day {
+    margin: 5px auto 0 auto;
+    display: block;
 }

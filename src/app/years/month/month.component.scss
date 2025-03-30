@@ -1,7 +1,37 @@
-.month-name{
+.month-name {
     font-style: italic;
 }
 
-.pair{
+.pair {
     color: blue;
+}
+
+.month {
+    h1 {
+        font-size: 14px;
+        padding: 5px;
+        background-color: lightgray;
+        margin: 0;
+        text-align: center;
+        border-bottom: solid black 1px;
+    }
+
+    vertical-align: top;
+    display: inline-block;
+
+    border:solid black 1px;
+    border-left: solid black 2px;
+    border-bottom: 0px;
+}
+
+.month-4 {
+    width: calc(1780px/4);
+}
+
+.month-5 {
+    width: calc(1780px/5);
+}
+
+.month-6 {
+    width: calc(1780px/6);
 }
