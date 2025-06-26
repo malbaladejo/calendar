@@ -9,12 +9,22 @@ body {
     font-size: 14px;
 }
 
+textarea {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    resize: none;
+}
+
 .relative {
     position: relative;
 }
 
 .absolute {
     position: absolute;
+}
+
+.margin-top-10 {
+    margin-top: 10px;
 }
 
 .bring-to-front {
@@ -25,16 +35,31 @@ body {
     cursor: pointer;
 }
 
+.border-right {
+    border-right: 1px solid lightgray;
+}
+
 .full-width {
     width: 100%;
 }
 
 .full-height {
+    display: block;
     height: 100%;
 }
 
 .horizontal-center {
     margin: auto;
+}
+
+.vertical-center {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.grid-row-auto-1fr {
+    display: grid;
+    grid-template-rows: auto 1fr;
 }
 
 @media print {
@@ -46,7 +71,6 @@ body {
 .toolbar {
 
     margin: 10px auto;
-    width: 250px;
 
     .nav-button {
         margin-right: 10px;
@@ -54,6 +78,7 @@ body {
     }
 
     .year {
+        color: white;
         margin: 0 5px;
         display: inline-block;
         font-size: 20px;
@@ -66,6 +91,17 @@ body {
     border-right: 1px;
     border-bottom: 0px;
     justify-self: center;
+    margin-top: 20px;
+}
+
+.month {
+
+    vertical-align: top;
+    display: inline-block;
+    width: 300px;
+    border: solid black 1px;
+    border-left: solid black 2px;
+    border-bottom: 0px;
 }
 
 .month {
@@ -78,12 +114,64 @@ body {
         border-bottom: solid black 1px;
     }
 
-    vertical-align: top;
-    display: inline-block;
-    width: 300px;
-    border:solid black 1px;
-    border-left: solid black 2px;
-    border-bottom: 0px;
+    month-name {
+        font-style: italic;
+    }
+
+    .pair {
+        color: blue;
+    }
+}
+
+.weeks {
+    display: grid;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 15px;
+
+    .week {
+        width: 100%;
+        border: solid darkgray 1px;
+
+        .day {
+            width: 100%;
+            min-height: 80px;
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            border-bottom: solid darkgray 1px;
+            vertical-align: middle;
+
+            textarea {
+                margin-left: 10px;
+                margin-top: 10px;
+            }
+
+            .day-number-label {
+                display: grid;
+                grid-template-columns: 40px 23px;
+                margin-top: 10px;
+            }
+
+            .cell-day-name {
+                margin-left: 10px;
+            }
+
+            .cell {
+                margin-left: 5px;
+            }
+
+            .label {
+                width: 95%;
+            }
+
+            .special-label {
+                position: absolute;
+                left: 90px;
+            }
+        }
+    }
 }
 
 .day {
@@ -92,12 +180,12 @@ body {
     grid-template-columns: 23px 30px 1fr;
     border-bottom: solid darkgray 1px;
     vertical-align: middle;
-    height: 20px;
+    height: 25px;
     position: relative;
 
     .cell {
         width: 20px;
-        height: 20px;
+        height: 25px;
         font-weight: bold;
     }
 
@@ -111,7 +199,7 @@ body {
         background: transparent;
         border: 0px;
         width: 95%;
-        margin-top: 1px;
+        margin-top: 2px;
         padding: 0px;
     }
 

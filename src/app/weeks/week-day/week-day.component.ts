@@ -1,19 +1,20 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { CustomLabelsService } from '../services/custom-labels/custom-labels.service';
-import { SchoolHolidaysService } from '../services/school-holidays.service';
-import { SpecialDaysService } from '../services/specialdays.service';
-import { Subscription } from 'rxjs';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { DateService } from 'src/app/services/date-service';
+import { CustomLabelsService } from 'src/app/years/services/custom-labels/custom-labels.service';
+import { SchoolHolidaysService } from 'src/app/years/services/school-holidays.service';
+import { SpecialDaysService } from 'src/app/years/services/specialdays.service';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-day',
-  templateUrl: './day.component.html',
-  styleUrls: ['./day.component.scss'],
+  selector: 'app-week-day',
+  templateUrl: './week-day.component.html',
+  styleUrl: './week-day.component.scss',
   standalone: false
 })
-export class DayComponent implements OnInit, OnDestroy {
+export class WeekDayComponent implements OnInit, OnDestroy {
   private _date?: Date;
-  private dayInitials = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+  private readonly dayInitials = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+  private readonly monthesInitials = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
   private _isHoliday = false;
   private _isBackToSchool = false;
   private _label = '';
@@ -50,10 +51,11 @@ export class DayComponent implements OnInit, OnDestroy {
   }
 
   public get dayOfWeek(): string {
-    if (!this.date) {
-      return '';
-    }
-    return this.dayInitials[this.date.getDay()];
+    return this.dateService.getDayInitials(this.date);
+  }
+
+  public get MonthName(): string {
+    return this.dateService.getMonthName(this.date);
   }
 
   public get label(): string {
@@ -101,25 +103,15 @@ export class DayComponent implements OnInit, OnDestroy {
   }
 
   public get isSaturday(): boolean {
-    if (!this.date) {
-      return false;
-    }
-    return this.date.getDay() == 6;
+    return this.dateService.isSaturday(this.date);
   }
 
   public get isSunday(): boolean {
-    if (!this.date) {
-      return false;
-    }
-    return this.date.getDay() == 0;
+    return this.dateService.isSunday(this.date);
   }
 
   public get isPassed(): boolean {
-    if (!this.date) {
-      return false;
-    }
-
-    return this.date < this.dateService.getBeginOfDay(new Date());
+    return this.dateService.isPassed(this.date);
   }
 
   public get specialLabelVisible(): boolean {
@@ -174,7 +166,7 @@ export class DayComponent implements OnInit, OnDestroy {
     this.isHoliday = await this.schoolHolidaysService.isHolidayAsync(this.date);
 
     if (!this.isHoliday) {
-      this.isBackToSchool = await this.schoolHolidaysService.isHolidayAsync(this.addDays(this.date, -1));
+      this.isBackToSchool = await this.schoolHolidaysService.isHolidayAsync(this.dateService.addDays(this.date, -1));
     }
 
     this.buildLabel();
@@ -229,11 +221,5 @@ export class DayComponent implements OnInit, OnDestroy {
     }
 
     return false;
-  }
-
-  private addDays(date: Date | undefined, days: number): Date {
-    if (!date)
-      return new Date();
-    return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
   }
 }

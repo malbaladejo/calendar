@@ -1,0 +1,6 @@
+<div class="week month">
+    <h1 class="month-name">{{name.toUpperCase()}}</h1>
+    @for(day of days; track day){
+    <app-week-day class="full-height" [date]="day"></app-week-day>
+    }
+</div>

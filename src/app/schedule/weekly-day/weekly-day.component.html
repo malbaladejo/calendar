@@ -1,8 +1,0 @@
-<div class="container">
-  <div class="header">{{dayName}}</div>
-
-  @for (time of times; track time; let i = $index) {
-    <div class="time-slot" [class.time-slot-hour]="i % 2 === 1">
-    </div>
-  }
-</div>

@@ -4,11 +4,51 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class DateService {
+    private readonly dayInitials = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+    private readonly monthesNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+
+    public getDayInitials(date?: Date): string {
+        if (!date) {
+            return '';
+        }
+        return this.dayInitials[date.getDay()];
+    }
+
+    public getMonthName(date?: Date): string {
+        if (!date) {
+            return '';
+        }
+        return this.monthesNames[date.getMonth()];
+    }
+
+    public isSaturday(date?: Date): boolean {
+        if (!date) {
+            return false;
+        }
+        return date.getDay() == 6;
+    }
+
+    public isSunday(date?: Date): boolean {
+        if (!date) {
+            return false;
+        }
+        return date.getDay() == 0;
+    }
+
+    public isPassed(date?: Date): boolean {
+        if (!date) {
+            return false;
+        }
+
+        return date < this.getBeginOfDay(new Date());
+    }
 
     public addDays(date: Date | undefined, days: number): Date {
         if (!date)
             return new Date();
-        return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
+        // DEBUG
+        const dayDurationInMs = 86400000;
+        return new Date(date.getTime() + days * dayDurationInMs);
     }
 
     public addHours(date: Date | undefined, hours: number): Date {
@@ -35,5 +75,19 @@ export class DateService {
         const day = date.getDay();
 
         return day === 0 || day === 7;
+    }
+
+    public getFirstDayOfWeek(date: Date): Date {
+        var day = date.getDay(),
+            diff = date.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+        return new Date(date.setDate(diff));
+    }
+
+    public getBeginOfDay(date: Date): Date {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
+    }
+
+    public getEndOfDay(date: Date): Date {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59);
     }
 }

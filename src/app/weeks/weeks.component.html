@@ -1,0 +1,13 @@
+<div class="grid-row-auto-1fr full-height">
+    <div class="toolbar">
+        <button (click)="previousWeek()" class="nav-button print-hidden">&lt;</button>
+        <div class="year">{{year}}</div>
+        <button (click)=" nextWeek()" class="nav-button print-hidden">&gt;</button>
+    </div>
+
+    <div class="weeks">
+        @for( firstDay of weeks; track firstDay){
+        <app-week [date]="firstDay"></app-week>
+        }
+    </div>
+</div>

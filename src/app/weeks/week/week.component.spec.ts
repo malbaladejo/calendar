@@ -6,10 +6,12 @@ describe('WeekComponent', () => {
   let component: WeekComponent;
   let fixture: ComponentFixture<WeekComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [WeekComponent]
-    });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [WeekComponent]
+    })
+    .compileComponents();
+
     fixture = TestBed.createComponent(WeekComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

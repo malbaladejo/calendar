@@ -1,6 +1,6 @@
 {
   "name": "ng-calendar",
-  "version": "3.0.0",
+  "version": "2025.06.01",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

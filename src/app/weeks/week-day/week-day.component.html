@@ -1,0 +1,22 @@
+<div class="full-height day" [class.saturday]="isSaturday" [class.sunday]="isSunday" [class.france]="isFrance"
+    [class.suisse]="isSuisse" [class.holiday]="isHoliday" [class.passed]="isPassed">
+    @if (specialLabelVisible) {
+    <div class="special-label hidden">{{specialLabel}}</div>
+    }
+
+    <div class="border-right">
+        <div class="day-number-label">
+            <div class="cell-day-name">{{dayOfWeek}}</div>
+            <div class="cell">
+                <app-custom-tag [date]="date"></app-custom-tag>
+            </div>
+        </div>
+        <div class="cell-day-name">
+            {{MonthName}}
+        </div>
+    </div>
+
+    <textarea [class]="['label', color, style]" [class.special]="specialLabelVisible" [(ngModel)]="label"
+        (focus)="onLabelFocusInEvent()" (focusout)="onLabelFocusOutEvent()"></textarea>
+
+</div>

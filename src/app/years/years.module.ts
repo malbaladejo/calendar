@@ -15,11 +15,17 @@ import { CustomTagComponent } from './day/custom-tag/custom-tag.component';
 import { CustomTagsService } from './services/custom-tags/custom-tags.service';
 import { CustomLabelsDataLocalStorageService } from './services/custom-labels/custom-labels-data-local-storage.service';
 import { MaterialModule } from '../material.module';
+import { WeeksComponent } from '../weeks/weeks.component';
+import { WeekComponent } from '../weeks/week/week.component';
+import { WeekDayComponent } from '../weeks/week-day/week-day.component';
 
 @NgModule({
   declarations: [
     DayComponent,
     MonthComponent,
+    WeeksComponent,
+    WeekDayComponent,
+    WeekComponent,
     YearComponent,
     CustomTagComponent
   ],

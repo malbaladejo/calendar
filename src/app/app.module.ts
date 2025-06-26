@@ -8,7 +8,6 @@ import { DateService } from './services/date-service';
 import { YearsModule } from './years/years.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { ScheduleModule } from './schedule/schedule.module';
 import { UidService } from './services/uid.service';
 import { ArrayService } from './services/array-service';
 
@@ -22,8 +21,7 @@ import { ArrayService } from './services/array-service';
     FormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    YearsModule,
-    ScheduleModule
+    YearsModule
   ],
   providers: [
     DateService,
