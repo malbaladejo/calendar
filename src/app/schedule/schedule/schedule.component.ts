@@ -6,9 +6,10 @@ import { Schedule } from '../models/schedule';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-schedule',
-  templateUrl: './schedule.component.html',
-  styleUrls: ['./schedule.component.scss']
+    selector: 'app-schedule',
+    templateUrl: './schedule.component.html',
+    styleUrls: ['./schedule.component.scss'],
+    standalone: false
 })
 export class ScheduleComponent implements OnInit {
   public scheduleInfos$?: Observable<ScheduleInfo[]>;

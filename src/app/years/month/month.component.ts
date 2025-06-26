@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-month',
-  templateUrl: './month.component.html',
-  styleUrls: ['./month.component.scss']
+    selector: 'app-month',
+    templateUrl: './month.component.html',
+    styleUrls: ['./month.component.scss'],
+    standalone: false
 })
 export class MonthComponent {
   private _date?: Date;

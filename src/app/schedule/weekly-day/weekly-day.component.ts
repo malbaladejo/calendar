@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-weekly-day',
-  templateUrl: './weekly-day.component.html',
-  styleUrls: ['./weekly-day.component.scss']
+    selector: 'app-weekly-day',
+    templateUrl: './weekly-day.component.html',
+    styleUrls: ['./weekly-day.component.scss'],
+    standalone: false
 })
 export class WeeklyDayComponent {
   private readonly dayNames = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];

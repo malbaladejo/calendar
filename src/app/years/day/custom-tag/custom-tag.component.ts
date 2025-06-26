@@ -5,9 +5,10 @@ import { DateService } from '../../../services/date-service';
 import { CustomLabelsService } from '../../services/custom-labels/custom-labels.service';
 
 @Component({
-  selector: 'app-custom-tag',
-  templateUrl: './custom-tag.component.html',
-  styleUrls: ['./custom-tag.component.scss']
+    selector: 'app-custom-tag',
+    templateUrl: './custom-tag.component.html',
+    styleUrls: ['./custom-tag.component.scss'],
+    standalone: false
 })
 export class CustomTagComponent implements OnInit, OnDestroy {
   private _date?: Date;

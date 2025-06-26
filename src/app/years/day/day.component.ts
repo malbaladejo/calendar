@@ -6,9 +6,10 @@ import { Subscription } from 'rxjs';
 import { DateService } from 'src/app/services/date-service';
 
 @Component({
-  selector: 'app-day',
-  templateUrl: './day.component.html',
-  styleUrls: ['./day.component.scss']
+    selector: 'app-day',
+    templateUrl: './day.component.html',
+    styleUrls: ['./day.component.scss'],
+    standalone: false
 })
 export class DayComponent implements OnInit, OnDestroy {
   private _date?: Date;

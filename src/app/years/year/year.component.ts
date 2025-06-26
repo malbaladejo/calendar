@@ -3,9 +3,10 @@ import { CustomLabelsService } from '../services/custom-labels/custom-labels.ser
 import { SchoolHolidaysService } from '../services/school-holidays.service';
 
 @Component({
-  selector: 'app-year',
-  templateUrl: './year.component.html',
-  styleUrls: ['./year.component.scss']
+    selector: 'app-year',
+    templateUrl: './year.component.html',
+    styleUrls: ['./year.component.scss'],
+    standalone: false
 })
 export class YearComponent {
   private _date?: Date = new Date();

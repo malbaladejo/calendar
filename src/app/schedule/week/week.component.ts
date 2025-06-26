@@ -6,9 +6,10 @@ import { Schedule } from '../models/schedule';
 import { ScheduleService } from '../services/schedule.service';
 
 @Component({
-  selector: 'app-week',
-  templateUrl: './week.component.html',
-  styleUrls: ['./week.component.scss']
+    selector: 'app-week',
+    templateUrl: './week.component.html',
+    styleUrls: ['./week.component.scss'],
+    standalone: false
 })
 export class WeekComponent implements OnInit {
   public minHours = new Date('2000-01-01T08:00:00');
