@@ -1,12 +1,14 @@
 <div class="container">
-    <div class="toolbar">
-        <button (click)="previousSemester()" class="nav-button print-hidden">&lt;&lt;</button>
-        <button (click)="previousMonth()" class="nav-button print-hidden">&lt;</button>
-        <div class="year">{{year}}</div>
-        <button (click)=" nextMonth()" class="nav-button print-hidden">&gt;</button>
-        <button (click)=" nextSemester()" class="nav-button print-hidden">&gt;&gt;</button>
-    </div>
-    <div class="calendar">
-        <app-month [date]="month" *ngFor="let month of months"></app-month>
-    </div>
+  <div class="toolbar">
+    <button (click)="previousSemester()" class="nav-button print-hidden">&lt;&lt;</button>
+    <button (click)="previousMonth()" class="nav-button print-hidden">&lt;</button>
+    <div class="year">{{year}}</div>
+    <button (click)=" nextMonth()" class="nav-button print-hidden">&gt;</button>
+    <button (click)=" nextSemester()" class="nav-button print-hidden">&gt;&gt;</button>
+  </div>
+  <div class="calendar">
+    @for (month of months; track month) {
+      <app-month [date]="month"></app-month>
+    }
+  </div>
 </div>

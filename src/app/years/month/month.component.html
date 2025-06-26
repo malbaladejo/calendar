@@ -1,6 +1,8 @@
 <div class="month">
-    <h1 class="month-name" [class.pair]="pair">{{name.toUpperCase()}}</h1>
-    <div *ngFor="let day of days">
-        <app-day [date]="day"></app-day>
+  <h1 class="month-name" [class.pair]="pair">{{name.toUpperCase()}}</h1>
+  @for (day of days; track day) {
+    <div>
+      <app-day [date]="day"></app-day>
     </div>
+  }
 </div>
