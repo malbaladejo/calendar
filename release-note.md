@@ -1,8 +1,18 @@
 # Todo
 * Popup de choix des couleurs
-    * placer la popup au centre de l'écran
-    * Griser le fond
+    * Utilise Material
+* Export / import des données
+* La navigation entres les mois et le semaine devrait modifier la route
 
+# 2025.7.0
+* Correction : le jour en cours ne doit pas être barré
+* Fonctionnalité : affichage par semaine
+
+# 3.0.0
+* Angular 20
+
+# 2.4.3
+* Correcrtion du style des jours fériés suisses.
 
 # 2.4.2
 * Correction de bug : si on est a cheval sur 2 années, les données de l'année suivante sont écrasées.
