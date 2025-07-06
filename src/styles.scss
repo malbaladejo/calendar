@@ -180,8 +180,12 @@ textarea {
     grid-template-columns: 23px 30px 1fr;
     border-bottom: solid darkgray 1px;
     vertical-align: middle;
-    height: 25px;
+    height: 24px;
     position: relative;
+
+    textarea {
+        overflow: hidden;
+    }
 
     .cell {
         width: 20px;
