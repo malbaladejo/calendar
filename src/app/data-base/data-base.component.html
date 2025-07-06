@@ -1,0 +1,20 @@
+<div class="root">
+    <!-- Nom du calendrier : <input [(ngModel)]="name">
+
+    <div>
+        Liste des fichiers disponibles :
+    </div> -->
+
+    @for( year of years; track year){
+    <div class="margin-top-10">
+        <a matFab extended [download]="getFileName(year)" [href]="convertToFile(year)">
+            <i class="fas fa-download" title="Télécharger le fichier"></i> {{year}}
+        </a>
+    </div>
+    }
+
+    <!-- <div>
+        Importer un fichier : <input type="file" accept="application/json" (change)="onFileSelected($event)" />
+    </div> -->
+
+</div>

@@ -1,9 +1,7 @@
 <div class="container">
     <div class="mat-typography">
         <mat-toolbar color="primary" class="print-hidden">
-            <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-            <mat-icon>menu</mat-icon>
-        </button> -->
+
             <div class="header-title">Calendrier</div>
 
             <a routerLink="/agenda" class="header-button" mat-button
@@ -11,17 +9,13 @@
 
             <a routerLink="/semaines" class="header-button" mat-button
                 routerLinkActive="navbar-header-item-selected">Semaines</a>
-            <!-- // TODO
-                <a routerLink="/emploi-du-temps" class="header-button" mat-button
-                routerLinkActive="navbar-header-item-selected">Emploi du temps</a>
--->
+
+
             <span class="spacer"></span>
-            <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-            <mat-icon>favorite</mat-icon>
-        </button>
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-            <mat-icon>share</mat-icon>
-        </button> -->
+
+            <button mat-button routerLink="/database">
+                <i class="fas fa-download" title="Télécharger"></i>
+            </button>
         </mat-toolbar>
     </div>
 
@@ -29,5 +23,5 @@
         <router-outlet></router-outlet>
     </div>
 
-    <div>v2025.7.2 - 2025-07-08</div>
+    <div>v2026.2.14.0</div>
 </div>
