@@ -6,6 +6,8 @@ import { CustomLabelsDataService } from './custom-labels-data.service';
   providedIn: 'root'
 })
 export class CustomLabelsDataLocalStorageService implements CustomLabelsDataService {
+  private _calendateNameKey = 'calendare-name';
+
   public async getDataAsync(year: number): Promise<CustomLabel[]> {
     const yearData = localStorage.getItem(year.toString());
     if (yearData) {
@@ -32,5 +34,27 @@ export class CustomLabelsDataLocalStorageService implements CustomLabelsDataServ
   public async saveDataAsync(year: number, items: CustomLabel[]): Promise<void> {
     const json = JSON.stringify(items);
     localStorage.setItem(year.toString(), json);
+  }
+
+  public async getAllYearsAsync(): Promise<number[]> {
+    const years: number[] = [];
+
+    const regex = /^([0-9]{4})$/gm;
+
+    for (let key of Object.keys(localStorage)) {
+      if (key.match(regex)) {
+        years.push(parseInt(key));
+      }
+    }
+
+    return years;
+  }
+
+  public getCalendarName(): string | null {
+    return localStorage.getItem(this._calendateNameKey);
+  }
+
+  public setCalendarName(name: string): void {
+    localStorage.setItem(this._calendateNameKey, name);
   }
 }

@@ -1,0 +1,5 @@
+<input [(ngModel)]="name">
+
+@for( year of years; track year){
+<div><a [download]="getFileName(year)" [href]="convertToFile(year)">{{year}}</a></div>
+}

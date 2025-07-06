@@ -15,12 +15,12 @@ export class CustomLabelsService {
 
   public async ensureDataAsync(date: Date): Promise<void> {
     const year = date.getFullYear();
-    await this.ensureDataForYeaerAsync(year - 1);
-    await this.ensureDataForYeaerAsync(year);
-    await this.ensureDataForYeaerAsync(year + 1);
+    await this.ensureDataForYearAsync(year - 1);
+    await this.ensureDataForYearAsync(year);
+    await this.ensureDataForYearAsync(year + 1);
   }
 
-  private async ensureDataForYeaerAsync(year: number): Promise<void> {
+  private async ensureDataForYearAsync(year: number): Promise<void> {
     if (this.customLabels.get(year)) {
       return;
     }
@@ -28,6 +28,17 @@ export class CustomLabelsService {
     const yearData = await this.customLabelsDataService.getDataAsync(year);
     this.customLabels.set(year, yearData);
   }
+
+  public async ensureDataForAllYearAsync(): Promise<void> {
+    for (let year of await this.getAllYearsAsync()) {
+      await this.ensureDataForYearAsync(year);
+    }
+  }
+
+  public getAllYearsAsync(): Promise<number[]> {
+    return this.customLabelsDataService.getAllYearsAsync();
+  }
+
 
   public onChanged(): Observable<Date> {
     return this._onChangedSubject.asObservable();
@@ -68,6 +79,14 @@ export class CustomLabelsService {
     let labelItem = this.getItemOrDefault(date);
     labelItem.style = style;
     await this.saveItemAsync(labelItem);
+  }
+
+  public getCalendarName(): string | null {
+    return this.customLabelsDataService.getCalendarName();
+  }
+
+  public setCalendarName(name: string): void {
+    this.customLabelsDataService.setCalendarName(name);
   }
 
   private getItemOrDefault(date: Date): CustomLabel {

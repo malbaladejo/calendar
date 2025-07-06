@@ -18,6 +18,7 @@ import { MaterialModule } from '../material.module';
 import { WeeksComponent } from '../weeks/weeks.component';
 import { WeekComponent } from '../weeks/week/week.component';
 import { WeekDayComponent } from '../weeks/week-day/week-day.component';
+import { DataBaseComponent } from '../data-base/data-base.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { WeekDayComponent } from '../weeks/week-day/week-day.component';
     WeekDayComponent,
     WeekComponent,
     YearComponent,
-    CustomTagComponent
+    CustomTagComponent,
+    DataBaseComponent
   ],
   imports: [
     BrowserModule,
