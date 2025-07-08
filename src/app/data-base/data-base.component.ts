@@ -31,7 +31,7 @@ export class DataBaseComponent implements OnInit {
     this._years = await this.customLabelService.getAllYearsAsync();
     await this.customLabelService.ensureDataForAllYearAsync();
 
-    this._name = this.customLabelService.getCalendarName();
+    this._name = this.customLabelService.getCalendarName() ?? 'mon-calendrier';
   }
 
   public convertToFile(year: number): string {

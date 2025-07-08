@@ -1,5 +1,19 @@
-<input [(ngModel)]="name">
+<div class="root">
+    Nom du calendrier : <input [(ngModel)]="name">
 
-@for( year of years; track year){
-<div><a [download]="getFileName(year)" [href]="convertToFile(year)">{{year}}</a></div>
-}
+    <div>
+        Liste des années disponibles :
+    </div>
+
+    @for( year of years; track year){
+    <div>
+        {{year}}
+
+        <a matMiniFab [download]="getFileName(year)" [href]="convertToFile(year)">
+            <i class="fas fa-download" title="Télécharger le fichier"></i>
+        </a>
+
+    </div>
+    }
+
+</div>
