@@ -183,10 +183,6 @@ textarea {
     height: 24px;
     position: relative;
 
-    textarea {
-        overflow: hidden;
-    }
-
     .cell {
         width: 20px;
         height: 25px;
@@ -203,8 +199,8 @@ textarea {
         background: transparent;
         border: 0px;
         width: 95%;
-        margin-top: 2px;
-        padding: 0px;
+        margin-top: 0px;
+        padding: 2px;
     }
 
     .label:focus {
