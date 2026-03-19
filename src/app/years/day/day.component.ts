@@ -171,10 +171,10 @@ export class DayComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.isHoliday = await this.schoolHolidaysService.isHolidayAsync(this.date);
+    this.isHoliday = await this.schoolHolidaysService.isFrenchHolidayAsync(this.date);
 
     if (!this.isHoliday) {
-      this.isBackToSchool = await this.schoolHolidaysService.isHolidayAsync(this.addDays(this.date, -1));
+      this.isBackToSchool = await this.schoolHolidaysService.isFrenchHolidayAsync(this.addDays(this.date, -1));
     }
 
     this.buildLabel();

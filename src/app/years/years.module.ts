@@ -19,6 +19,7 @@ import { WeeksComponent } from '../weeks/weeks.component';
 import { WeekComponent } from '../weeks/week/week.component';
 import { WeekDayComponent } from '../weeks/week-day/week-day.component';
 import { DataBaseComponent } from '../data-base/data-base.component';
+import { DayCssClassService } from './services/day-css-class.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { DataBaseComponent } from '../data-base/data-base.component';
     MaterialModule
   ],
   providers: [
+    DayCssClassService,
     SpecialDaysService,
     EasterProvider,
     JeuneGenevoisProvider,

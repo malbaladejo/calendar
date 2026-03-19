@@ -18,32 +18,78 @@ interface HolidayDto {
 export class SchoolHolidaysService {
   private holidays = new Map<string, Holiday[]>();
 
-  constructor() { }
-
-  public async isHolidayAsync(date: Date): Promise<boolean> {
+  public async isFrenchHolidayAsync(date: Date): Promise<boolean> {
     const year = date.getFullYear();
 
-    const result = await this.isHolidayForYearAsync(date, this.getCacheKey(year - 1));
+    const result = await this.isHolidayForYearAsync(date, this.getFrenchUrl(year - 1));
     if (result) {
       return true;
     }
 
-    return await this.isHolidayForYearAsync(date, this.getCacheKey(year));
+    return await this.isHolidayForYearAsync(date, this.getFrenchUrl(year));
+  }
+
+  public isFrenchHoliday(date: Date): boolean {
+    const year = date.getFullYear();
+
+    const result = this.isHolidayForYear(date, this.getFrenchUrl(year - 1));
+    if (result) {
+      return true;
+    }
+
+    return this.isHolidayForYear(date, this.getFrenchUrl(year));
+  }
+
+  public async isGenevaHolidayAsync(date: Date): Promise<boolean> {
+    const year = date.getFullYear();
+
+    const result = await this.isHolidayForYearAsync(date, this.getGenevaUrl(year - 1));
+    if (result) {
+      return true;
+    }
+
+    return await this.isHolidayForYearAsync(date, this.getGenevaUrl(year));
+  }
+
+  public isGenevaHoliday(date: Date): boolean {
+    const year = date.getFullYear();
+
+    const result = this.isHolidayForYear(date, this.getGenevaUrl(year - 1));
+    if (result) {
+      return true;
+    }
+
+    return this.isHolidayForYear(date, this.getGenevaUrl(year));
   }
 
   public async ensureDataAsync(date: Date): Promise<void> {
     const year = date.getFullYear();
-    await this.isHolidayForYearAsync(date, this.getCacheKey(year - 1));
-    await this.isHolidayForYearAsync(date, this.getCacheKey(year));
+    await this.isHolidayForYearAsync(date, this.getFrenchUrl(year - 1));
+    await this.isHolidayForYearAsync(date, this.getFrenchUrl(year));
+
+    await this.isHolidayForYearAsync(date, this.getGenevaUrl(year - 1));
+    await this.isHolidayForYearAsync(date, this.getGenevaUrl(year));
   }
 
-  private getCacheKey(year: number): string {
+  private getFrenchUrl(year: number): string {
     return `assets/school-holidays/${year}-${year + 1}.json`
   }
 
-  private async isHolidayForYearAsync(date: Date, url: string): Promise<boolean> {
-    const holidays = await this.getHolidays(url);
+  private getGenevaUrl(year: number): string {
+    return `assets/school-holidays/ge-${year}-${year + 1}.json`
+  }
 
+  private isHolidayForYear(date: Date, url: string): boolean {
+    const holidays = this.getHolidays(url);
+    return this.isHoliday(date, holidays);
+  }
+
+  private async isHolidayForYearAsync(date: Date, url: string): Promise<boolean> {
+    const holidays = await this.getHolidaysAsync(url);
+    return this.isHoliday(date, holidays);
+  }
+
+  private isHoliday(date: Date, holidays: Holiday[]): boolean {
     for (let holiday of holidays) {
       if (this.compareDate(holiday.begin, date) <= 0 && this.compareDate(date, holiday.end) <= 0) {
         return true;
@@ -53,7 +99,15 @@ export class SchoolHolidaysService {
     return false;
   }
 
-  private async getHolidays(url: string): Promise<Holiday[]> {
+
+
+  private getHolidays(url: string): Holiday[] {
+    let holidays = this.holidays.get(url);
+
+    return holidays ?? [];
+  }
+
+  private async getHolidaysAsync(url: string): Promise<Holiday[]> {
     let holidays = this.holidays.get(url);
 
     if (!holidays) {

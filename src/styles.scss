@@ -316,6 +316,23 @@ $passed-color: #636363;
     background: linear-gradient(to bottom left, #fff calc(50% - 1px), $passed-color, #fff calc(50% + 1px));
 }
 
+/*
+ saturday
+ sunday
+
+ french public holiday
+ switzerland public holiday 
+ french & switzerland public holiday
+
+ french school holiday
+ switzerland school holiday
+ french & switzerland school holiday
+*/
+
+.ge-holiday{
+    background: #2C3DBA;
+}
+
 .holiday {
     background: #b1ff8f;
 }
@@ -345,7 +362,7 @@ $passed-color: #636363;
 }
 
 .passed.france {
-    background: linear-gradient(to bottom left, #ffaaaa calc(50% - 1px), $passed-color, #ffaaaa calc(50% + 1px));
+    background: linear-gradient(to bottom left, #ffaaaa calc(50% - 1px), $   , #ffaaaa calc(50% + 1px));
 }
 
 .suisse {
@@ -359,3 +376,5 @@ $passed-color: #636363;
 .france.suisse {
     background: linear-gradient(to right, #ffaaaa 0%, #ffaaaa 50%, #ffe8aa 50%, #ffe8aa 100%);
 }
+
+
