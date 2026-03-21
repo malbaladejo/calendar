@@ -1,0 +1,17 @@
+<div class="container">
+  <button matButton="outlined" (click)="add()">
+    <i class="fas fa-square-plus" title="Nouveau"></i>Nouveau
+  </button>
+  @for(postIt of postIts; track postIt.id){
+  <div [class.selected]="isSelected(postIt)" [class]="['postit',postIt.color]" (click)="select(postIt)">
+    <div class="buttons">
+      @if(isSelected(postIt)){
+      <span class="button" (click)="delete(postIt)">
+        <i class="fas fa-trash" title="Supprimer"></i>
+      </span>
+      }
+    </div>
+    <textarea class="text full-height full-width" [(ngModel)]="postIt.text"></textarea>
+  </div>
+  }
+</div>
