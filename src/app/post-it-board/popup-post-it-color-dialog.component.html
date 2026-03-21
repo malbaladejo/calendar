@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Sélectionner une couleur</h2>
+<mat-dialog-content>
+
+  <!-- <mat-form-field>
+    <mat-label>Favorite Animal</mat-label>
+    <input matInput [(ngModel)]="animal" />
+  </mat-form-field> -->
+
+  @for(color of colors;track color){
+  <div [class]="['postit',color]" (click)="onSelectColor(color)"></div>
+  }
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton (click)="onClose()">Annuler</button>
+  <!-- <button matButton [mat-dialog-close]="animal()" cdkFocusInitial>Ok</button>  -->
+</mat-dialog-actions>

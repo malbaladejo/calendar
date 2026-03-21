@@ -1,0 +1,50 @@
+:host {
+    display: block;
+    width: 100%;
+}
+
+.container {
+    width: 100%;
+    position: relative;
+
+    .button-add {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    .postits {
+
+        /* Style commun à tous les post-it */
+        .postit {
+            width: 180px;
+            height: 150px;
+            padding: 21px 10px 10px 10px;
+            margin: 20px 0 0 20px;
+            font-size: 1rem;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
+            border-radius: 4px;
+            display: inline-block;
+            position: relative;
+
+            .buttons {
+                position: absolute;
+                top: 1px;
+                right: 3px;
+
+                .button {
+                    font-size: 12px;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        /* Variantes de couleur */
+        
+
+        .selected {
+            border: solid 1px lightgray;
+        }
+
+    }
+}

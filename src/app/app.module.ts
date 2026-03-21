@@ -9,11 +9,14 @@ import { YearsModule } from './years/years.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { UidService } from './services/uid.service';
-import { ArrayService } from './services/array-service';
+import { POST_IT_SERVICE } from './services/post-it/post-it.interface.service';
+import { PostItBoardComponent } from './post-it-board/post-it-board.component';
+import { PostItService } from './services/post-it/post-it.impl.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PostItBoardComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,7 @@ import { ArrayService } from './services/array-service';
   providers: [
     DateService,
     UidService,
-    ArrayService
+    { provide: POST_IT_SERVICE, useClass: PostItService }
   ],
   bootstrap: [AppComponent]
 })

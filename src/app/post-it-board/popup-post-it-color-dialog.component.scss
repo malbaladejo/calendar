@@ -1,0 +1,9 @@
+$size: 55px;
+
+.postit {
+    width: $size;
+    height: $size;
+    margin: 7px;
+    display: inline-block;
+    cursor: pointer;
+}
