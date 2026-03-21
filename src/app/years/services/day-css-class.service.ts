@@ -27,7 +27,7 @@ export class DayCssClassService {
             return 'sunday';
         }
 
-
+        return '';
     }
 
     public isSaturday(date: Date): boolean {
