@@ -15,6 +15,10 @@ textarea {
     resize: none;
 }
 
+.mat-toolbar-single-row{
+    height: 40px !important;
+}
+
 .relative {
     position: relative;
 }
@@ -91,7 +95,7 @@ textarea {
     border-right: 1px;
     border-bottom: 0px;
     justify-self: center;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 .month {
@@ -106,10 +110,11 @@ textarea {
 
 .month {
     h1 {
-        font-size: 14px;
-        padding: 5px;
+        font-size: 12px;
+        padding: 2px 5px 2px 5px;
         background-color: lightgray;
         margin: 0;
+        height: 12px;
         text-align: center;
         border-bottom: solid black 1px;
     }
@@ -180,8 +185,11 @@ textarea {
     grid-template-columns: 23px 30px 1fr;
     border-bottom: solid darkgray 1px;
     vertical-align: middle;
-    height: 24px;
+    height: 28px;
     position: relative;
+    textarea{
+        font-size: 12px;
+    }
 
     .cell {
         width: 20px;
