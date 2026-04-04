@@ -9,9 +9,9 @@ import { YearsModule } from './years/years.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { UidService } from './services/uid.service';
-import { PostItMockService } from './services/post-it/post-it.mock.service';
 import { POST_IT_SERVICE } from './services/post-it/post-it.interface.service';
 import { PostItBoardComponent } from './post-it-board/post-it-board.component';
+import { PostItService } from './services/post-it/post-it.impl.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { PostItBoardComponent } from './post-it-board/post-it-board.component';
   providers: [
     DateService,
     UidService,
-    { provide: POST_IT_SERVICE, useClass: PostItMockService }
+    { provide: POST_IT_SERVICE, useClass: PostItService }
   ],
   bootstrap: [AppComponent]
 })

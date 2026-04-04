@@ -22,7 +22,7 @@ textarea:focus {
     border: none;
 }
 
-.mat-toolbar-single-row{
+.mat-toolbar-single-row {
     height: 40px !important;
 }
 
@@ -194,7 +194,8 @@ textarea:focus {
     vertical-align: middle;
     height: 28px;
     position: relative;
-    textarea{
+
+    textarea {
         font-size: 12px;
     }
 
@@ -373,4 +374,40 @@ $passed-color: #636363;
 
 .france.suisse {
     background: linear-gradient(to right, #ffaaaa 0%, #ffaaaa 50%, #ffe8aa 50%, #ffe8aa 100%);
+}
+
+.postit.yellow {
+    background-color: #fff8a6;
+}
+
+.postit.pink {
+    background-color: #ffd1dc;
+}
+
+.postit.green {
+    background-color: #d4f8c4;
+}
+
+.postit.blue {
+    background-color: #cfe8ff;
+}
+
+.postit.orange {
+    background-color: #ffe2b3;
+}
+
+.postit.purple {
+    background-color: #e6d4ff;
+}
+
+.postit.red {
+    background-color: #ffb3b3;
+}
+
+.postit.turquoise {
+    background-color: #b8f2e6;
+}
+
+.postit.darkblue {
+    background-color: rgba(12, 163, 233, 0.397);
 }
