@@ -17,8 +17,8 @@
 
         /* Style commun à tous les post-it */
         .postit {
-            width: 180px;
-            height: 150px;
+            width: 220px;
+            height: 225px;
             padding: 21px 10px 10px 10px;
             margin: 20px 0 0 20px;
             font-size: 1rem;
@@ -26,6 +26,7 @@
             border-radius: 4px;
             display: inline-block;
             position: relative;
+            font-size: 18px;
 
             .buttons {
                 position: absolute;

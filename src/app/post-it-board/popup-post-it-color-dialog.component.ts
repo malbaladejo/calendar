@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
+import { MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
+import { PostItColor } from '../services/post-it/post-it-color';
 
 @Component({
   selector: 'app-post-it-board',
@@ -10,35 +11,15 @@ import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDi
     MatButtonModule,
     MatDialogTitle,
     MatDialogContent,
-    MatDialogActions,
-    MatDialogClose
+    MatDialogActions
   ],
 })
 export class PopupPostItColorDialogComponent {
-  // readonly dialogRef = inject(MatDialogRef<DialogOverviewExampleDialog>);
-  // readonly data = inject<DialogData>(MAT_DIALOG_DATA);
-  // readonly animal = model(this.data.animal);
 
-  // public readonly color = model(this.data.animal);
-  /**
-   *
-   */
-
-  // ENHANCE enumarate PostItColor enum
-  public readonly colors = [
-    'yellow',
-    'pink',
-    'green',
-    'blue',
-    'orange',
-    'purple',
-    'red',
-    'turquoise',
-    'darkblue'
-  ];
+  public readonly colors: Array<PostItColor>;
 
   constructor(private readonly _dialogRef: MatDialogRef<PopupPostItColorDialogComponent>) {
-
+    this.colors = Object.values(PostItColor);
   }
 
   public onSelectColor(color: string): void {

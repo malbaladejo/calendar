@@ -45,7 +45,7 @@ export class PostItBoardComponent implements OnInit {
   }
 
   public async add(): Promise<void> {
-    const postIt = new PostIt();
+    const postIt = PostIt.create();
     const postItViewModel = new PostItViewModel(this._postItService, postIt);
 
     this._postIts.push(postItViewModel);
