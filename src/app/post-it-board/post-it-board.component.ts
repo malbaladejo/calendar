@@ -1,30 +1,62 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { IPostItService, POST_IT_SERVICE } from '../services/post-it/post-it.interface.service';
 import { PostIt } from '../services/post-it/post-it';
 import { ArrayService } from '../services/array-service';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupPostItColorDialogComponent } from './popup-post-it-color-dialog.component';
 import { PostItViewModel } from './post-it.viewmodel';
+import { MatButtonModule } from '@angular/material/button';
+import { CdkDragEnd, DragDropModule } from '@angular/cdk/drag-drop';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-post-it-board',
   templateUrl: './post-it-board.component.html',
   styleUrls: ['./post-it-board.component.scss'],
-  standalone: false
+  imports: [
+    FormsModule,
+    MatButtonModule,
+    MatIconModule,
+    DragDropModule
+  ]
 })
 export class PostItBoardComponent implements OnInit {
   private _postIts: Array<PostItViewModel> = [];
   private _selectedPostIt?: PostItViewModel;
+  private _isCtrlPressed = false;
 
   constructor(
     @Inject(POST_IT_SERVICE) private _postItService: IPostItService,
-    private _dialog: MatDialog) {
+    private _dialog: MatDialog,
+    private changeDetectorRef: ChangeDetectorRef) {
 
+    window.addEventListener('keydown', event => {
+      if (event.key === 'Control' && !this._isCtrlPressed) {
+        this._isCtrlPressed = true;
+        this.changeDetectorRef.detectChanges();
+        console.debug(`Drag enabled, isDragDisabled:${this.isDragDisabled}`);
+      }
+    });
+
+    window.addEventListener('keyup', event => {
+      if (event.key === 'Control' && this._isCtrlPressed) {
+        this._isCtrlPressed = false;
+        this.changeDetectorRef.detectChanges();
+        console.debug(`Drag disabled, isDragDisabled:${this.isDragDisabled}`);
+      }
+    });
   }
 
   public async ngOnInit(): Promise<void> {
     const postIts = await this._postItService.getPostItsAsync();
-    this._postIts = postIts.map(p => new PostItViewModel(this._postItService, p));
+    this._postIts = [];
+    this._postIts.push(...postIts.map(p => new PostItViewModel(this._postItService, p, this._postIts)));
+    this.changeDetectorRef.detectChanges();
+  }
+
+  public get isDragDisabled(): boolean {
+    return !this._isCtrlPressed;
   }
 
   public get postIts(): PostItViewModel[] {
@@ -33,20 +65,21 @@ export class PostItBoardComponent implements OnInit {
 
   public select(postIt: PostItViewModel): void {
     this._selectedPostIt = postIt;
+    postIt.selectAsync();
   }
 
   public isSelected(postIt: PostItViewModel): boolean {
     return postIt === this._selectedPostIt;
   }
 
-  public async delete(postIt: PostIt): Promise<void> {
-    await this._postItService.deletePostItAsync(postIt);
+  public async delete(postIt: PostItViewModel): Promise<void> {
+    await this._postItService.deletePostItAsync(postIt.postIt);
     this._postIts = ArrayService.removeItem(this._postIts, (item: PostItViewModel) => item.id === postIt.id);
   }
 
   public async add(): Promise<void> {
-    const postIt = new PostIt();
-    const postItViewModel = new PostItViewModel(this._postItService, postIt);
+    const postIt = PostIt.create(this._postIts.map(p => p.postIt));
+    const postItViewModel = new PostItViewModel(this._postItService, postIt, this.postIts);
 
     this._postIts.push(postItViewModel);
     await this._postItService.savePostItAsync(postIt);
@@ -61,8 +94,13 @@ export class PostItBoardComponent implements OnInit {
       console.log('The dialog was closed');
       if (result !== undefined) {
         postIt.color = result;
-        await this._postItService.savePostItAsync(postIt.postIt);
+        this.changeDetectorRef.detectChanges();
       }
     });
+  }
+
+  public drop(event: CdkDragEnd, postItVM: PostItViewModel) {
+    postItVM.position = event.source.getFreeDragPosition()
+    this._postItService.savePostItAsync(postItVM.postIt);
   }
 }   

@@ -2,7 +2,10 @@
 
   <div class="postits">
     @for(postIt of postIts; track postIt.id){
-    <div [class.selected]="isSelected(postIt)" [class]="['postit',postIt.color]" (click)="select(postIt)">
+    <div [class.selected]="isSelected(postIt)" [class.cursor-drag]="isSelected(postIt) && !isDragDisabled"
+      [class]="['postit',postIt.color]" [style.z-index]="postIt.zIndex" (click)="select(postIt)" cdkDrag
+      (cdkDragEnded)="drop($event, postIt)" (cdkDragStarted)="select(postIt)" [cdkDragDisabled]="isDragDisabled"
+      [cdkDragFreeDragPosition]="postIt.position">
       <div class="buttons">
         @if(isSelected(postIt)){
         <span class="button" (click)="openColorDialog(postIt)">
@@ -14,7 +17,7 @@
         </span>
         }
       </div>
-      <textarea class="text full-height full-width" [(ngModel)]="postIt.text"></textarea>
+      <textarea class="text full-height full-width" spellcheck="false" [(ngModel)]="postIt.text"></textarea>
     </div>
     }
   </div>
