@@ -1,3 +1,4 @@
+import { Point } from '@angular/cdk/drag-drop';
 import { PostIt } from '../services/post-it/post-it';
 import { PostItColor } from '../services/post-it/post-it-color';
 import { IPostItService } from '../services/post-it/post-it.interface.service';
@@ -30,5 +31,13 @@ export class PostItViewModel {
         this.postIt.color = value;
         this._postItService.savePostItAsync(this.postIt);
 
+    }
+
+    public get position(): Readonly<Point> {
+        return this.postIt.position;
+    }
+
+    public set position(value: Readonly<Point>) {
+        this.postIt.position = value;
     }
 }

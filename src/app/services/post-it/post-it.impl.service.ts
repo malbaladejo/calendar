@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
 import { IPostItService } from './post-it.interface.service';
 import { PostIt } from './post-it';
-import { PostItColor } from './post-it-color';
-import { json } from '@angular-devkit/core';
 import { ArrayService } from '../array-service';
 
 @Injectable()
@@ -32,6 +30,7 @@ export class PostItService implements IPostItService {
         } else {
             postItData.color = postIt.color;
             postItData.text = postIt.text;
+            postItData.position = postIt.position;
         }
 
         localStorage.setItem(this._postitKey, JSON.stringify(postIts));

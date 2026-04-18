@@ -10,13 +10,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { UidService } from './services/uid.service';
 import { POST_IT_SERVICE } from './services/post-it/post-it.interface.service';
-import { PostItBoardComponent } from './post-it-board/post-it-board.component';
 import { PostItService } from './services/post-it/post-it.impl.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    PostItBoardComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

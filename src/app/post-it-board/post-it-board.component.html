@@ -2,7 +2,9 @@
 
   <div class="postits">
     @for(postIt of postIts; track postIt.id){
-    <div [class.selected]="isSelected(postIt)" [class]="['postit',postIt.color]" (click)="select(postIt)">
+    <div [class.selected]="isSelected(postIt)" [class]="['postit',postIt.color]" (click)="select(postIt)" cdkDrag
+      (cdkDragEnded)="drop($event, postIt)" [cdkDragFreeDragPosition]="postIt.position">
+
       <div class="buttons">
         @if(isSelected(postIt)){
         <span class="button" (click)="openColorDialog(postIt)">
