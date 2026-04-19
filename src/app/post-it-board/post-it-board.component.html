@@ -2,8 +2,9 @@
 
   <div class="postits">
     @for(postIt of postIts; track postIt.id){
-    <div [class.selected]="isSelected(postIt)" [class]="['postit',postIt.color]" (click)="select(postIt)" cdkDrag
-      (cdkDragEnded)="drop($event, postIt)" [cdkDragFreeDragPosition]="postIt.position">
+    <div [class.selected]="isSelected(postIt)" [class]="['postit',postIt.color]" [style.z-index]="postIt.zIndex"
+      (click)="select(postIt)" cdkDrag (cdkDragEnded)="drop($event, postIt)" (cdkDragStarted)="select(postIt)"
+      [cdkDragFreeDragPosition]="postIt.position">
 
       <div class="buttons">
         @if(isSelected(postIt)){

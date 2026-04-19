@@ -34,7 +34,8 @@ export class PostItBoardComponent implements OnInit {
 
   public async ngOnInit(): Promise<void> {
     const postIts = await this._postItService.getPostItsAsync();
-    this._postIts = postIts.map(p => new PostItViewModel(this._postItService, p));
+    this._postIts = [];
+    this._postIts.push(...postIts.map(p => new PostItViewModel(this._postItService, p, this._postIts)));
     this.changeDetectorRef.detectChanges();
   }
 
@@ -44,6 +45,7 @@ export class PostItBoardComponent implements OnInit {
 
   public select(postIt: PostItViewModel): void {
     this._selectedPostIt = postIt;
+    postIt.selectAsync();
   }
 
   public isSelected(postIt: PostItViewModel): boolean {
@@ -57,7 +59,7 @@ export class PostItBoardComponent implements OnInit {
 
   public async add(): Promise<void> {
     const postIt = PostIt.create(this._postIts.map(p => p.postIt));
-    const postItViewModel = new PostItViewModel(this._postItService, postIt);
+    const postItViewModel = new PostItViewModel(this._postItService, postIt, this.postIts);
 
     this._postIts.push(postItViewModel);
     await this._postItService.savePostItAsync(postIt);
