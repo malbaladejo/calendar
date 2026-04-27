@@ -1,24 +1,29 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CustomLabelsService } from '../services/custom-labels/custom-labels.service';
 import { SchoolHolidaysService } from '../services/school-holidays.service';
 
 @Component({
-    selector: 'app-year',
-    templateUrl: './year.component.html',
-    styleUrls: ['./year.component.scss'],
-    standalone: false
+  selector: 'app-year',
+  templateUrl: './year.component.html',
+  styleUrls: ['./year.component.scss'],
+  standalone: false
 })
-export class YearComponent {
+export class YearComponent implements OnInit {
   private _date?: Date = new Date();
   private _firstMonth = 0;
   public months = new Array<Date>();
 
   constructor(
     private readonly schoolHolidaysService: SchoolHolidaysService,
-    private readonly customLabelsService: CustomLabelsService) {
+    private readonly customLabelsService: CustomLabelsService,
+    private readonly changeDetectorRef: ChangeDetectorRef) {
 
+  }
+
+  public async ngOnInit(): Promise<void> {
     this.initializeFirstMonth();
-    this.buildMonthsAsync();
+    await this.buildMonthsAsync();
+    this.changeDetectorRef.detectChanges();
   }
 
   public get date(): Date | undefined {
@@ -54,6 +59,8 @@ export class YearComponent {
       const monthVM = new Date(this.date.getFullYear(), month, 1);
       this.months.push(monthVM);
     }
+
+    this.changeDetectorRef.detectChanges();
   }
 
   public previousMonth(): Promise<void> {

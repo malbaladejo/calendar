@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DateService } from '../services/date-service';
 import { SchoolHolidaysService } from '../years/services/school-holidays.service';
 import { CustomLabelsService } from '../years/services/custom-labels/custom-labels.service';
@@ -16,7 +16,8 @@ export class WeeksComponent implements OnInit {
 
   constructor(private readonly dateService: DateService,
     private readonly schoolHolidaysService: SchoolHolidaysService,
-    private readonly customLabelsService: CustomLabelsService) {
+    private readonly customLabelsService: CustomLabelsService,
+    private readonly changeDetectorRef: ChangeDetectorRef) {
 
   }
 
@@ -26,6 +27,7 @@ export class WeeksComponent implements OnInit {
 
   public async ngOnInit(): Promise<void> {
     await this.buildWeeksAsync(new Date());
+    this.changeDetectorRef.detectChanges();
   }
 
   private async buildWeeksAsync(date: Date): Promise<void> {
