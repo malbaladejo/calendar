@@ -44,6 +44,8 @@ export class WeekDayComponent implements OnInit, OnDestroy {
     return this._date;
   }
 
+  // TODO: Skipped for migration because:
+  //  Accessor inputs cannot be migrated as they are too complex.
   @Input()
   public set date(value: Date | undefined) {
     this._date = value;
