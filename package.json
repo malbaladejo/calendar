@@ -1,6 +1,6 @@
 {
   "name": "ng-calendar",
-  "version": "5.0.0.0",
+  "version": "5.0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "nx serve",

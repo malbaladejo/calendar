@@ -42,6 +42,6 @@ CREATE TABLE `calendar_refresh_tokens` (
   KEY `idx_token` (`Token`),
   KEY `idx_userid` (`UserId`),
   KEY `FK_calendar_label_UserId` (`UserId`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
