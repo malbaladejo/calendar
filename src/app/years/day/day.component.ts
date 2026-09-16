@@ -3,9 +3,9 @@ import { CustomLabelsService } from '../services/custom-labels/custom-labels.ser
 import { SchoolHolidaysService } from '../services/school-holidays.service';
 import { SpecialDaysService } from '../services/specialdays.service';
 import { Subscription } from 'rxjs';
-import { DateService } from 'src/app/services/date-service';
 import { CustomTagComponent } from './custom-tag/custom-tag.component';
 import { FormsModule } from '@angular/forms';
+import { DateService } from '../../services/date-service';
 
 @Component({
   selector: 'app-day',

@@ -176,10 +176,10 @@ namespace CalendarWebApi.Services.Impl.MySql
     /// Si l'utilisateur n'a plus ni Token ni Refresh Token valide, il peut demander l'envoie d'un email contenant un
     /// lien de connection. Ce lien contient un mot de passe aléatoire et temporaire.
     /// </summary>
-    public async Task<User?> GetUserByPasswordAsync(string password)
+    public async Task<User?> GetUserByPasswordAsync(User user, string password)
     {
       const string query = querySelect + " Password = @Password";
-      logger.LogInformation($"Getting user by temp password {password}");
+      logger.LogInformation("Getting user OTP for {userId}", user.UserId);
 
       try
       {
@@ -220,14 +220,14 @@ namespace CalendarWebApi.Services.Impl.MySql
 SET `Password` = @Password,
 `PasswordCreationDate` = @PasswordCreationDate
 WHERE `UserId` = @UserId;";
-      logger.LogInformation($"Getting user by temp password {password}");
+      this.logger.LogInformation("Update OTP for {user}", userId);
 
       try
       {
         await using var connection = new MySqlConnection(connectionString);
         await using var command = new MySqlCommand(query, connection);
 
-        command.Parameters.AddWithValue("@Password", password);
+        command.Parameters.AddWithValue("@Password", string.IsNullOrEmpty(password) ? null : PasswordHasher.Hash(password));
         command.Parameters.AddWithValue("@PasswordCreationDate", dateTime);
         command.Parameters.AddWithValue("@UserId", userId);
 

@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth.service';
-import { LoginRequest } from '../models/login-request';
 import { LoginResponse } from '../models/login-response';
 import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { User } from '../models/user';

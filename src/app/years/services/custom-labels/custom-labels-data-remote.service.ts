@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
 import { CustomLabel } from './custom-label';
 import { CustomLabelsDataService } from './custom-labels-data.service';
-import { CALENDAR_SERVICE_TOKEN, CalendarService } from 'src/app/services/remote/calendar.service';
-import { PromiseCompletionSource } from 'src/app/services/promise-completion-source';
-import { PromiseEx } from 'src/app/services/promise-ex';
-import { CustomLabelMapper } from 'src/app/services/remote/mappers/custom-label.mapper';
+import { CALENDAR_SERVICE_TOKEN, CalendarService } from '../../../services/remote/calendar.service';
+import { PromiseCompletionSource } from '../../../services/promise-completion-source';
+import { CustomLabelMapper } from '../../../services/remote/mappers/custom-label.mapper';
+import { PromiseEx } from '../../../services/promise-ex';
 
 @Injectable({
     providedIn: 'root'

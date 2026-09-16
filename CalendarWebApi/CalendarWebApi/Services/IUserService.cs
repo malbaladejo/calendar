@@ -10,7 +10,7 @@ namespace CalendarWebApi.Services
 
     Task<User> GetUserAsync(string nameOrEmail);
 
-    Task<User> GetUserByPasswordAsync(string userId);
+    Task<User> GetUserByPasswordAsync(string nameOrEmail, string password);
 
     Task SendConnexionEmailAsync(string userId);
   }

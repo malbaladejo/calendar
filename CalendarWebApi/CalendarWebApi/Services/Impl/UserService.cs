@@ -1,6 +1,7 @@
 using CalendarWebApi.Models;
 using CalendarWebApi.Services.Configuration;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace CalendarWebApi.Services.Impl
 {
@@ -11,6 +12,8 @@ namespace CalendarWebApi.Services.Impl
     private readonly ILoginConfigurationFacade loginConfigurationFacade;
     private readonly ILogger<UserService> logger;
     private readonly string htmlBodyFilePath;
+
+    private const int passwordDurationInMinutes = 10;
 
     public UserService(
       ICalendarRepository calendarRepository,
@@ -50,10 +53,10 @@ namespace CalendarWebApi.Services.Impl
       this.logger.LogInformation("Sending connexion email for user {userId}", userId);
       try
       {
-        var password = GenerateUrlSafeToken();
+        var password = GenerateOTP();
         var user = await this.calendarRepository.UpdateTempPasswordAsync(userId, password, DateTime.UtcNow);
 
-        await this.SendConnexionEmailAsync(user);
+        await this.SendConnexionEmailAsync(user, password);
 
         this.logger.LogInformation("Connexion email sent for user {id}", userId);
       }
@@ -79,44 +82,54 @@ namespace CalendarWebApi.Services.Impl
       return user;
     }
 
-    private const int passwordDurationInMinutes = 10;
 
-    public async Task<User> GetUserByPasswordAsync(string password)
+
+    public async Task<User> GetUserByPasswordAsync(string nameOrEmail, string password)
     {
-      this.logger.LogInformation("Getting user by password {password}", password);
-      User? user = null;
-
-      user = await this.calendarRepository.GetUserByPasswordAsync(password);
+      this.logger.LogInformation("Getting user by password {name},  {password}", nameOrEmail, password);
+      var user = await this.GetUserAsync(nameOrEmail);
 
       if (user == null)
       {
+        this.logger.LogWarning("User {name} not found.", nameOrEmail);
         return null;
       }
 
-      if (user.PasswordCreationDate == null)
+      if (user.PasswordCreationDate == null || string.IsNullOrEmpty(user.Password))
       {
+        this.logger.LogWarning("User {userId} has no password creation date.", user.UserId);
         return null;
       }
 
       var duration = DateTime.UtcNow - user.PasswordCreationDate.Value;
       if (duration.TotalMinutes > passwordDurationInMinutes)
       {
+        this.logger.LogWarning("User {userId} password expired. Duration: {duration} minutes.", user.UserId, duration.TotalMinutes);
         return null;
       }
 
+      if (!PasswordHasher.Verify(password, user.Password))
+      {
+        this.logger.LogWarning("User {userId} password does not match. Reset password.", user.UserId);
+        await this.calendarRepository.UpdateTempPasswordAsync(user.UserId, null, null);
+        return null;
+      }
+
+      this.logger.LogInformation("User {userId} password verified.", user.UserId);
       await this.calendarRepository.UpdateTempPasswordAsync(user.UserId, null, null);
 
       return user;
     }
 
-    private async Task SendConnexionEmailAsync(User user)
+    private async Task SendConnexionEmailAsync(User user, string password)
     {
       try
       {
         this.logger.LogInformation($"Send connexion email to {user.UserId}");
         var subject = "Votre lien sécurisé vers Calendrier est ici ";
         var htmlBody = File.ReadAllText(this.htmlBodyFilePath);
-        htmlBody = htmlBody.Replace("[url]", $"{loginConfigurationFacade.LoginUrl}{user.Password}");
+        htmlBody = htmlBody.Replace("[url]", string.Format(loginConfigurationFacade.LoginUrl, user.Name, password));
+        htmlBody = htmlBody.Replace("[otp]", password);
 
         await this.emailService.SendEmailAsync(user.Email, subject, htmlBody);
         this.logger.LogInformation($"Connexion email sent to {user.UserId}");
@@ -145,13 +158,16 @@ namespace CalendarWebApi.Services.Impl
       return user;
     }
 
-    private static string GenerateUrlSafeToken(int byteLength = 32)
+    private static string GenerateOTP()
     {
-      byte[] bytes = RandomNumberGenerator.GetBytes(byteLength);
-      return Convert.ToBase64String(bytes)
-          .Replace("+", "-")
-          .Replace("/", "_")
-          .TrimEnd('=');
+      var sb = new StringBuilder(6);
+
+      for (int i = 0; i < 6; i++)
+      {
+        sb.Append(RandomNumberGenerator.GetInt32(0, 10));
+      }
+
+      return sb.ToString();
     }
   }
 }

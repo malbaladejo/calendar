@@ -2,8 +2,8 @@ import { Component, Inject, OnInit, OnDestroy, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AUTH_SERVICE_TOKEN, AuthService } from 'src/app/services/remote/auth.service';
-import { User } from 'src/app/services/remote/models/user';
+import { AUTH_SERVICE_TOKEN, AuthService } from '../../services/remote/auth.service';
+import { User } from '../../services/remote/models/user';
 
 @Component({
   selector: 'app-login-header',

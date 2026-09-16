@@ -14,15 +14,15 @@ export class LoginRequestComponent {
     public isSubmitting = signal(false);
     public emailSent = signal(false);
     public errorMessage = signal<string | null>(null);
+    public form: ReturnType<FormBuilder['group']>;
 
-    public form = this.fb.group({
-        identifier: ['', [Validators.required, Validators.minLength(2)]]
-    });
-
-    constructor(
+    public constructor(
         @Inject(AUTH_SERVICE_TOKEN) private readonly _authService: AuthService,
-        private fb: FormBuilder
-    ) { }
+        private readonly fb: FormBuilder) {
+        this.form = this.fb.group({
+            identifier: ['', [Validators.required, Validators.minLength(2)]]
+        });
+    }
 
     public get identifier() {
         return this.form.get('identifier');

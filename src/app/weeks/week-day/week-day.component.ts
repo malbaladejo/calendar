@@ -1,11 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { DateService } from 'src/app/services/date-service';
-import { CustomLabelsService } from 'src/app/years/services/custom-labels/custom-labels.service';
-import { SchoolHolidaysService } from 'src/app/years/services/school-holidays.service';
-import { SpecialDaysService } from 'src/app/years/services/specialdays.service';
+import { CustomLabelsService } from '../../years/services/custom-labels/custom-labels.service';
+import { SchoolHolidaysService } from '../../years/services/school-holidays.service';
+import { SpecialDaysService } from '../../years/services/specialdays.service';
 import { Subscription } from 'rxjs';
-import { CustomTagComponent } from 'src/app/years/day/custom-tag/custom-tag.component';
 import { FormsModule } from '@angular/forms';
+import { DateService } from '../../services/date-service';
+import { CustomTagComponent } from '../../years/day/custom-tag/custom-tag.component';
 
 @Component({
   selector: 'app-week-day',

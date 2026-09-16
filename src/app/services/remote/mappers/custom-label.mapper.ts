@@ -1,6 +1,6 @@
-import { CustomLabel } from 'src/app/years/services/custom-labels/custom-label';
 import { RemoteCustomLabel } from '../models/remote-custom-label';
 import { DateService } from '../../date-service';
+import { CustomLabel } from '../../../years/services/custom-labels/custom-label';
 
 export class CustomLabelMapper {
     public static mapBackToFront(source: RemoteCustomLabel): CustomLabel {

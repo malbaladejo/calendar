@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { DateService } from 'src/app/services/date-service';
 import { WeekDayComponent } from '../week-day/week-day.component';
+import { DateService } from '../../services/date-service';
 
 @Component({
   selector: 'app-week',

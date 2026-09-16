@@ -1,40 +1,35 @@
 {
-  "name": "ng-calendar",
-  "version": "5.0.0.1",
+  "name": "calendar",
+  "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "nx serve",
-    "build": "nx build",
-    "watch": "nx build --watch --configuration development",
-    "test": "nx test",
-    "lint": "nx lint --fix"
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
   },
   "private": true,
+  "packageManager": "npm@11.19.0",
   "dependencies": {
-    "@angular/animations": "21.2.7",
-    "@angular/common": "21.2.7",
-    "@angular/compiler": "21.2.7",
-    "@angular/core": "21.2.7",
-    "@angular/forms": "21.2.7",
-    "@angular/material": "21.2.7",
-    "@angular/platform-browser": "21.2.7",
-    "@angular/platform-browser-dynamic": "21.2.7",
-    "@angular/router": "21.2.7",
-    "@angular/cdk": "21.2.7",
-    "rxjs": "^7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "0.16.1"
+    "@angular/common": "22.1.6",
+    "@angular/compiler": "22.1.6",
+    "@angular/core": "22.1.6",
+    "@angular/forms": "22.1.6",
+    "@angular/material": "22.1.6",
+    "@angular/platform-browser": "22.1.6",
+    "@angular/router": "22.1.6",
+    "@angular/cdk": "22.1.6",
+    "@angular/animations": "22.1.6",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@angular-devkit/core": "21.2.6",
-    "@angular-devkit/schematics": "21.2.6",
-    "@angular/build": "21.2.6",
-    "@angular/cli": "21.2.6",
-    "@angular/compiler-cli": "21.2.7",
-    "@nx/angular": "22.6.4",
-    "@nx/workspace": "22.6.4",
-    "@schematics/angular": "21.2.6",
-    "nx": "22.6.4",
-    "typescript": "5.9.3"
+    "@angular/build": "^22.1.7",
+    "@angular/cli": "^22.1.7",
+    "@angular/compiler-cli": "^22.1.0",
+    "jsdom": "^28.0.0",
+    "prettier": "^3.8.1",
+    "typescript": "~6.0.2",
+    "vitest": "^4.0.8"
   }
 }
