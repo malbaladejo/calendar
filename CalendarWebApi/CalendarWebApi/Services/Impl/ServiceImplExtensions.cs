@@ -37,5 +37,12 @@ namespace CalendarWebApi.Services.Impl
 
       return services;
     }
+
+    public static IServiceCollection AddMockCustomLabelsRepository(this IServiceCollection services)
+    {
+      services.AddSingleton<ICalendarRepository, MockRepository>();
+
+      return services;
+    }
   }
 }

@@ -58,7 +58,7 @@ namespace CalendarWebApi.Controllers
       {
         this.logger.LogInformation("Login for {user}", name);
 
-        var user = await this.userService.GetUserByPasswordAsync(na, password);
+        var user = await this.userService.GetUserByPasswordAsync(name, password);
 
         if (user == null)
           return Unauthorized();

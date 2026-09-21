@@ -26,8 +26,14 @@ internal class Program
            .AddJwt();
 
     builder.Logging.AddLog4Net();
-    builder.Services.AddCustomLabelsRepository()
-                    .AddUserService()
+
+#if DEBUG
+    builder.Services.AddMockCustomLabelsRepository();
+#else
+    builder.Services.AddCustomLabelsRepository();
+#endif
+
+    builder.Services.AddUserService()
                     .AddLabelService()
                     .AddJwtTokenCreator()
                     .AddEmailService()
