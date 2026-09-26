@@ -95,11 +95,15 @@ namespace CalendarWebApi.Services.Impl
         return null;
       }
 
+      this.logger.LogInformation("User {userId} found", user.UserId);
+
       if (user.PasswordCreationDate == null || string.IsNullOrEmpty(user.Password))
       {
         this.logger.LogWarning("User {userId} has no password creation date.", user.UserId);
         return null;
       }
+
+      this.logger.LogInformation("Password duration ok fo User {userId}", user.UserId);
 
       var duration = DateTime.UtcNow - user.PasswordCreationDate.Value;
       if (duration.TotalMinutes > passwordDurationInMinutes)
@@ -108,15 +112,16 @@ namespace CalendarWebApi.Services.Impl
         return null;
       }
 
+      this.logger.LogInformation("Reset OTP for User {userId}.", user.UserId);
+      await this.calendarRepository.UpdateTempPasswordAsync(user.UserId, null, null);
+
       if (!PasswordHasher.Verify(password, user.Password))
       {
         this.logger.LogWarning("User {userId} password does not match. Reset password.", user.UserId);
-        await this.calendarRepository.UpdateTempPasswordAsync(user.UserId, null, null);
         return null;
       }
 
       this.logger.LogInformation("User {userId} password verified.", user.UserId);
-      await this.calendarRepository.UpdateTempPasswordAsync(user.UserId, null, null);
 
       return user;
     }
