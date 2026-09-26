@@ -176,43 +176,43 @@ namespace CalendarWebApi.Services.Impl.MySql
     /// Si l'utilisateur n'a plus ni Token ni Refresh Token valide, il peut demander l'envoie d'un email contenant un
     /// lien de connection. Ce lien contient un mot de passe aléatoire et temporaire.
     /// </summary>
-    public async Task<User?> GetUserByPasswordAsync(User user, string password)
-    {
-      const string query = querySelect + " Password = @Password";
-      logger.LogInformation("Getting user OTP for {userId}", user.UserId);
+    // public async Task<User?> GetUserByPasswordAsync(string userId, string password)
+    // {
+    //   const string query = querySelect + " Password = @Password";
+    //   logger.LogInformation("Getting user OTP for {userId}", userId);
 
-      try
-      {
-        await using var connection = new MySqlConnection(connectionString);
-        await using var command = new MySqlCommand(query, connection);
+    //   try
+    //   {
+    //     await using var connection = new MySqlConnection(connectionString);
+    //     await using var command = new MySqlCommand(query, connection);
 
-        command.Parameters.AddWithValue("@Password", password);
+    //     command.Parameters.AddWithValue("@Password", password);
 
-        connection.Open();
-        using var reader = await command.ExecuteReaderAsync();
+    //     connection.Open();
+    //     using var reader = await command.ExecuteReaderAsync();
 
-        if (reader.Read())
-        {
-          var user = ReadUser(reader);
+    //     if (reader.Read())
+    //     {
+    //       var user = ReadUser(reader);
 
-          logger.LogInformation("Get user {UserId} with password {password} ok.", user.UserId, password);
-          return user;
-        }
+    //       logger.LogInformation("Get user {UserId} with password {password} ok.", userId, password);
+    //       return user;
+    //     }
 
-        logger.LogWarning("No user found by password {password}.", password);
-        return null;
-      }
-      catch (MySqlException ex)
-      {
-        logger.LogError(ex, "SQL error during getting user by password {password}.", password);
-        throw; // ou return null selon le comportement souhaité
-      }
-      catch (Exception ex)
-      {
-        logger.LogError(ex, "Unexpected error during getting user by password {password}.", password);
-        throw;
-      }
-    }
+    //     logger.LogWarning("No user found by password {password}.", password);
+    //     return null;
+    //   }
+    //   catch (MySqlException ex)
+    //   {
+    //     logger.LogError(ex, "SQL error during getting user by password {password}.", password);
+    //     throw; // ou return null selon le comportement souhaité
+    //   }
+    //   catch (Exception ex)
+    //   {
+    //     logger.LogError(ex, "Unexpected error during getting user by password {password}.", password);
+    //     throw;
+    //   }
+    // }
 
     public async Task<User?> UpdateTempPasswordAsync(string userId, string? password, DateTime? dateTime)
     {

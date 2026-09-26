@@ -52,20 +52,19 @@ namespace CalendarWebApi.Controllers
 
     [AllowAnonymous]
     [HttpGet("login")]
-    public async Task<ActionResult> LoginAsync(string token)
+    public async Task<ActionResult> LoginAsync(string nameOrEmail, string password)
     {
       try
       {
-        this.logger.LogInformation("Login for {user}", token);
+        this.logger.LogInformation("Login for {user}", nameOrEmail);
 
-        var user = await this.userService.GetUserByPasswordAsync(token);
+        var user = await this.userService.GetUserByPasswordAsync(nameOrEmail, password);
 
         if (user == null)
           return Unauthorized();
 
         await this.ManageTokensAsync(user);
-
-        return this.Redirect("/");
+        return Ok();
       }
       catch (Exception ex)
       {

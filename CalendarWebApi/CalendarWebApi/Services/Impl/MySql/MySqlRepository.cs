@@ -36,8 +36,8 @@ namespace CalendarWebApi.Services.Impl.MySql
     public Task<User?> GetUserByIdAsync(string userId)
       => this.userRepository.GetUserByIdAsync(userId);
 
-    public Task<User?> GetUserByPasswordAsync(string password)
-      => this.userRepository.GetUserByPasswordAsync(password);
+    // public Task<User?> GetUserByPasswordAsync(string userId, string password)
+    //   => this.userRepository.GetUserByPasswordAsync(userId, password);
 
     public Task<User?> UpdateTempPasswordAsync(string userId, string? password, DateTime? dateTime)
       => this.userRepository.UpdateTempPasswordAsync(userId, password, dateTime);

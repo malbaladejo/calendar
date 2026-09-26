@@ -15,7 +15,7 @@ namespace CalendarWebApi.Services
     Task<User?> GetUserByNameAsync(string name);
     Task<User?> GetUserByEmailAsync(string email);
     Task<User?> GetUserByIdAsync(string userId);
-    Task<User?> GetUserByPasswordAsync(string password);
+    //Task<User?> GetUserByPasswordAsync(string userId, string password);
 
     Task<User?> UpdateTempPasswordAsync(string userId, string? password, DateTime? dateTime);
 
