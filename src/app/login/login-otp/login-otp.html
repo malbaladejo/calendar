@@ -1,0 +1,24 @@
+<div class="login-request-container">
+    <div class="success-message">
+        <h1>Email envoyé ✅</h1>
+        <p>
+            Si un compte correspond à cet identifiant, un email contenant le lien
+            de connexion vient de vous être envoyé.
+        </p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="password">OTP</label>
+            <input id="password" type="text" formControlName="password" placeholder="ex: 123456"
+                [class.invalid]="password?.invalid && password?.touched" autocomplete="username" />
+            @if (password?.invalid && password?.touched) {
+            <span class="error-text">
+                Merci de renseigner votre OTP.
+            </span>
+            }
+        </div>
+
+        <button type="submit">Connexion</button>
+    </form>
+</div>

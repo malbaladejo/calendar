@@ -96,6 +96,30 @@ namespace CalendarWebApi.Controllers
         return BadRequest();
       }
     }
+
+    [AllowAnonymous]
+    [HttpPost("otp-debug")]
+    public async Task<ActionResult<string>> GetOtpByUserNameAsync(string name)
+    {
+      try
+      {
+        this.logger.LogInformation("Get OTP for {user}", name);
+
+        var user = await this.userService.GetUserAsync(name);
+        if (user == null)
+          return Unauthorized();
+
+        var otp = await this.userService.GenerateOTPAsync(user.UserId);
+        this.logger.LogInformation("OTP generated for {user}", name);
+
+        return otp;
+      }
+      catch (Exception ex)
+      {
+        this.logger.LogError(ex, "Error during OTP generation for {username}", name);
+        return BadRequest();
+      }
+    }
 #endif
 
     //[AllowAnonymous]

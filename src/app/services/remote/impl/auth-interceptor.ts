@@ -10,13 +10,14 @@ export const authInterceptor: HttpInterceptorFn = (
     const authService = inject(AUTH_SERVICE_TOKEN);
     const router = inject(Router);
 
+    // TODO pas de rediriger vers login-request si on est déjà sur login-request ou login-otp ??
     return next(req).pipe(
         catchError((error: HttpErrorResponse) => {
             if (error.status === 401 && !req.url.includes('/refresh')) {
                 return from(authService.refreshAsync()).pipe(
                     switchMap(() => next(req)),
                     catchError(() => {
-                        router.navigate(['/login']);
+                        router.navigate(['/login-request']);
                         return throwError(() => error);
                     })
                 );

@@ -52,7 +52,7 @@ export class LoginHeaderComponent implements OnInit, OnDestroy {
       await this._authService.logoutAsync();
       this._user = null;
       this.isLogged.set(false);
-      this._router.navigate(['/login']);
+      this._router.navigate(['/login-request']);
     }
     catch (e) {
       console.error(e);

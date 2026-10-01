@@ -12,6 +12,8 @@ namespace CalendarWebApi.Services
 
     Task<User> GetUserByPasswordAsync(string nameOrEmail, string password);
 
+    Task<string> GenerateOTPAsync(string userId);
+
     Task SendConnexionEmailAsync(string userId);
   }
 }

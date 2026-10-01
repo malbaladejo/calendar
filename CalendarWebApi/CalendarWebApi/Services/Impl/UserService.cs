@@ -48,13 +48,31 @@ namespace CalendarWebApi.Services.Impl
       }
     }
 
+    public async Task<string> GenerateOTPAsync(string userId)
+    {
+      this.logger.LogInformation("Generate OTP for {userId}", userId);
+      try
+      {
+        var password = GenerateOTP();
+        await this.calendarRepository.UpdateTempPasswordAsync(userId, password, DateTime.UtcNow);
+
+        this.logger.LogInformation("OTP generated for user {id}", userId);
+        return password;
+      }
+      catch (Exception ex)
+      {
+        this.logger.LogError(ex, "Error during OTP generation for {userId}.", userId);
+        throw;
+      }
+    }
+
     public async Task SendConnexionEmailAsync(string userId)
     {
       this.logger.LogInformation("Sending connexion email for user {userId}", userId);
       try
       {
-        var password = GenerateOTP();
-        var user = await this.calendarRepository.UpdateTempPasswordAsync(userId, password, DateTime.UtcNow);
+        var password = await this.GenerateOTPAsync(userId);
+        var user = await this.GetUserByIdAsync(userId);
 
         await this.SendConnexionEmailAsync(user, password);
 

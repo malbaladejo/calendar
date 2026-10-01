@@ -8,6 +8,7 @@ export const AUTH_SERVICE_TOKEN = new InjectionToken<AuthService>('AuthService')
 
 export interface AuthService {
     loginRequestAsync(name: string | null | undefined): Promise<void>;
+    loginAsync(name: string | null | undefined, password: string | null | undefined): Promise<void>;
 
     // loginAsync(token: string | null | undefined): Promise<void>;
 

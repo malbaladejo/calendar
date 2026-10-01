@@ -1,0 +1,81 @@
+@if(state() === loginState.request
+|| state() === loginState.requestSending
+|| state() === loginState.requestInError) {
+
+<div class="login-request-container">
+  <h1>Connexion</h1>
+  <p class="subtitle">Entrez votre nom ou votre email pour recevoir un lien de connexion.</p>
+
+  <form [formGroup]="nameForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="identifier">Nom ou email</label>
+      <input id="identifier" type="text" formControlName="identifier" placeholder="ex: jean.dupont ou jean@exemple.com"
+        [class.invalid]="identifier?.invalid && identifier?.touched" autocomplete="username" />
+      @if (identifier?.invalid && identifier?.touched) {
+      <span class="error-text">
+        Merci de renseigner votre nom ou votre email.
+      </span>
+      }
+    </div>
+
+    @if (errorMessage()) {
+    <div class="error-banner">
+      {{ errorMessage() }}
+    </div>
+    }
+
+    <button type="submit" [disabled]="state() === loginState.requestSending">
+      @if (state() === loginState.request) {
+      Recevoir le lien de connexion
+      }
+      @if (state() === loginState.requestSending) {
+      Envoi en cours...
+      }
+    </button>
+  </form>
+</div>
+}
+
+@if(state() === loginState.waitForOtp
+|| state() === loginState.loginSending
+|| state() === loginState.loginInError) {
+
+<div class="login-request-container">
+  <h1>Connexion</h1>
+  <div class="success-message">
+    <h1>Email envoyé ✅</h1>
+    <p>
+      Si un compte correspond à cet identifiant, un email contenant le lien
+      de connexion vient de vous être envoyé.
+    </p>
+  </div>
+
+  <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="otp">OTP</label>
+      <input id="otp" type="text" formControlName="otp" placeholder="ex: 123456"
+        [class.invalid]="password?.invalid && password?.touched" autocomplete="username" />
+      @if (password?.invalid && password?.touched) {
+      <span class="error-text">
+        Merci de renseigner votre OTP.
+      </span>
+      }
+    </div>
+
+    @if (errorMessage()) {
+    <div class="error-banner">
+      {{ errorMessage() }}
+    </div>
+    }
+
+    <button type="submit" [disabled]="state() === loginState.loginSending">
+      @if (state() === loginState.waitForOtp) {
+      Connexion
+      }
+      @if (state() === loginState.loginSending) {
+      Envoi en cours...
+      }
+    </button>
+  </form>
+</div>
+}

@@ -1,0 +1,97 @@
+.login-request-container {
+    max-width: 420px;
+    margin: 60px auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+  
+    h1 {
+      color: #222222;
+      font-size: 26px;
+      margin: 0 0 16px 0;
+    }
+  
+    .subtitle {
+      color: #555555;
+      font-size: 15px;
+      margin: 0 0 30px 0;
+    }
+  
+    .form-group {
+      text-align: left;
+      margin-bottom: 20px;
+  
+      label {
+        display: block;
+        font-size: 14px;
+        color: #333333;
+        margin-bottom: 6px;
+      }
+  
+      input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 14px;
+        border: 1px solid #dddddd;
+        border-radius: 6px;
+        font-size: 15px;
+  
+        &:focus {
+          outline: none;
+          border-color: #4A90E2;
+        }
+  
+        &.invalid {
+          border-color: #e05555;
+        }
+      }
+  
+      .error-text {
+        display: block;
+        color: #e05555;
+        font-size: 13px;
+        margin-top: 6px;
+      }
+    }
+  
+    .error-banner {
+      background-color: #fdecea;
+      color: #c0392b;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+  
+    button {
+      width: 100%;
+      background-color: #4A90E2;
+      color: #ffffff;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+  
+      &:disabled {
+        background-color: #a9c7ec;
+        cursor: not-allowed;
+      }
+  
+      &.secondary {
+        background-color: transparent;
+        color: #4A90E2;
+        border: 1px solid #4A90E2;
+        margin-top: 10px;
+      }
+    }
+  
+    .success-message p {
+      color: #555555;
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+  }
