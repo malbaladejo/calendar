@@ -6,7 +6,7 @@
   <h1>Connexion</h1>
   <p class="subtitle">Entrez votre nom ou votre email pour recevoir un lien de connexion.</p>
 
-  <form [formGroup]="nameForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="nameForm" (ngSubmit)="requestOtpAsync()">
     <div class="form-group">
       <label for="identifier">Nom ou email</label>
       <input id="identifier" type="text" formControlName="identifier" placeholder="ex: jean.dupont ou jean@exemple.com"
@@ -50,7 +50,7 @@
     </p>
   </div>
 
-  <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="otpForm" (ngSubmit)="loginAsync()">
     <div class="form-group">
       <label for="otp">OTP</label>
       <input id="otp" type="text" formControlName="otp" placeholder="ex: 123456"

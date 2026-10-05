@@ -61,21 +61,8 @@ export class LoginRequestComponent implements OnInit {
     public get password() {
         return this.otpForm.get('otp');
     }
-
-    public async onSubmit(): Promise<void> {
-        switch (this.state()) {
-            case LoginState.request:
-            case LoginState.requestInError:
-                await this.requestOtpAsync();
-                break;
-            case LoginState.waitForOtp:
-            case LoginState.loginInError:
-                await this.loginAsync();
-                break;
-        }
-    }
-
-    private async requestOtpAsync(): Promise<void> {
+    
+    public async requestOtpAsync(): Promise<void> {
         if (this.nameForm.invalid) {
             this.nameForm.markAllAsTouched();
             return;
@@ -95,7 +82,7 @@ export class LoginRequestComponent implements OnInit {
         }
     }
 
-    private async loginAsync(): Promise<void> {
+    public async loginAsync(): Promise<void> {
         if (this.otpForm.invalid) {
             this.otpForm.markAllAsTouched();
             return;
