@@ -48,7 +48,7 @@ export class AuthImplService implements AuthService {
     public async loginAsync(name: string | null | undefined, password: string | null | undefined): Promise<void>{
         await firstValueFrom(
             this.http.post<LoginResponse>(
-                `${this.baseUrl}/login?name=${name ?? ''}&password=${password ?? ''}`, {}
+                `${this.baseUrl}/quick-login?name=${name ?? ''}&password=${password ?? ''}`, {}
             )) as LoginResponse;
     }
     // public async loginAsync(token: string | null | undefined): Promise<void> {

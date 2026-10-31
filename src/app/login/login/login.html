@@ -1,1 +1,47 @@
-<p>login works!</p>
+<form class="login" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+  <h2>Connexion</h2>
+
+  <div class="field">
+    <label for="nom">Nom</label>
+    <input
+      id="nom"
+      type="text"
+      formControlName="nom"
+      autocomplete="username"
+      [attr.aria-invalid]="form.controls.nom.invalid && form.controls.nom.touched"
+    />
+    @if (form.controls.nom.touched && form.controls.nom.hasError('required')) {
+      <small class="error">Le nom est obligatoire.</small>
+    }
+  </div>
+
+  <div class="field">
+    <label for="motDePasse">Mot de passe</label>
+    <div class="password-wrapper">
+      <input
+        id="motDePasse"
+        [type]="showPassword() ? 'text' : 'password'"
+        formControlName="motDePasse"
+        autocomplete="current-password"
+        [attr.aria-invalid]="form.controls.motDePasse.invalid && form.controls.motDePasse.touched"
+      />
+      <button
+        type="button"
+        class="toggle"
+        (click)="showPassword.set(!showPassword())"
+        [attr.aria-label]="showPassword() ? 'Masquer le mot de passe' : 'Afficher le mot de passe'"
+      >
+        {{ showPassword() ? 'Masquer' : 'Afficher' }}
+      </button>
+    </div>
+    @if (form.controls.motDePasse.touched) {
+      @if (form.controls.motDePasse.hasError('required')) {
+        <small class="error">Le mot de passe est obligatoire.</small>
+      } @else if (form.controls.motDePasse.hasError('minlength')) {
+        <small class="error">Au moins 4 caractères.</small>
+      }
+    }
+  </div>
+
+  <button type="submit" class="submit" [disabled]="form.invalid">Se connecter</button>
+</form>

@@ -20,7 +20,7 @@ namespace CalendarWebApi.Controllers
     public AuthenticateController(
       IJwtTokenCreator jwtTokenCreator,
       IUserService userService,
-       IJwtConfigurationFacade configuration,
+      IJwtConfigurationFacade configuration,
       ILogger<AuthenticateController> logger)
     {
       this.jwtTokenCreator = jwtTokenCreator;
@@ -58,7 +58,7 @@ namespace CalendarWebApi.Controllers
       {
         this.logger.LogInformation("Login for {user}", name);
 
-        var user = await this.userService.GetUserByPasswordAsync(na, password);
+        var user = await this.userService.GetUserByPasswordAsync(name, password);
 
         if (user == null)
           return Unauthorized();
@@ -72,6 +72,30 @@ namespace CalendarWebApi.Controllers
         return BadRequest();
       }
     }
+
+    [AllowAnonymous]
+    [HttpGet("quick-login")]
+    public async Task<ActionResult> QuickLoginAsync(string name, string password)
+    {
+      try
+      {
+        this.logger.LogInformation("Login for {user}", name);
+
+        var user = await this.userService.GetUserByPasswordAsync(name, password, false);
+
+        if (user == null)
+          return Unauthorized();
+
+        await this.ManageTokensAsync(user);
+        return Ok();
+      }
+      catch (Exception ex)
+      {
+        this.logger.LogError(ex, "Error");
+        return BadRequest();
+      }
+    }
+
 
 #if DEBUG
     [AllowAnonymous]
@@ -211,14 +235,15 @@ namespace CalendarWebApi.Controllers
       }
     }
 
+#if DEBUG
+    [AllowAnonymous]
     [HttpPost("register")]
-    [Authorize(Roles = Roles.Admin)]
     public async Task<ActionResult<LoginResponse>> CreateUserAsync([FromBody] RegisterRequest request)
     {
       this.logger.LogInformation("Creating user.");
       try
       {
-        var user = await this.userService.CreateUserAsync(request.UserName, request.Email);
+        var user = await this.userService.CreateUserAsync(request.UserName, request.Email, request.Password);
 
         if (user == null)
           return Unauthorized();
@@ -232,6 +257,7 @@ namespace CalendarWebApi.Controllers
         return BadRequest();
       }
     }
+#endif
 
     [Authorize]
     [HttpGet("user")]

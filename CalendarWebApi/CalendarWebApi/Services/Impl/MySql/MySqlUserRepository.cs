@@ -37,7 +37,7 @@ namespace CalendarWebApi.Services.Impl.MySql
         command.Parameters.AddWithValue("@UserId", user.UserId);
         command.Parameters.AddWithValue("@Name", user.Name);
         command.Parameters.AddWithValue("@Email", user.Email);
-        command.Parameters.AddWithValue("@Password", user.Password);
+        command.Parameters.AddWithValue("@Password", user.Password != null ? PasswordHasher.Hash(user.Password) : null);
 
         connection.Open();
         int rowsAffected = await command.ExecuteNonQueryAsync();
@@ -214,7 +214,7 @@ namespace CalendarWebApi.Services.Impl.MySql
     //   }
     // }
 
-    public async Task<User?> UpdateTempPasswordAsync(string userId, string? password, DateTime? dateTime)
+    public async Task<User?> UpdatePasswordAsync(string userId, string? password, DateTime? dateTime)
     {
       const string query = @"UPDATE `calendar_user`
 SET `Password` = @Password,

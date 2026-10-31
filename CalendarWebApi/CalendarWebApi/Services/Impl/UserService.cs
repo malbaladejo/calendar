@@ -29,7 +29,7 @@ namespace CalendarWebApi.Services.Impl
       this.htmlBodyFilePath = Path.Combine(environment.WebRootPath, this.loginConfigurationFacade.EmailTemplate);
     }
 
-    public async Task<User> CreateUserAsync(string name, string email)
+    public async Task<User> CreateUserAsync(string name, string email, string? password = null)
     {
       this.logger.LogInformation("Creating user {name}", name);
       try
@@ -37,6 +37,9 @@ namespace CalendarWebApi.Services.Impl
         // TODO check if name or email allready used
 
         var user = User.Create(name, email);
+        if (!string.IsNullOrWhiteSpace(password))
+          user.Password = password;
+
         await this.calendarRepository.InsertUserAsync(user);
         this.logger.LogInformation("User created with id:{id}", user.UserId);
         return user;
@@ -102,7 +105,7 @@ namespace CalendarWebApi.Services.Impl
 
 
 
-    public async Task<User> GetUserByPasswordAsync(string nameOrEmail, string password)
+    public async Task<User> GetUserByPasswordAsync(string nameOrEmail, string password, bool resetPassword = true)
     {
       this.logger.LogInformation("Getting user by password {name},  {password}", nameOrEmail, password);
       var user = await this.GetUserAsync(nameOrEmail);
@@ -115,23 +118,29 @@ namespace CalendarWebApi.Services.Impl
 
       this.logger.LogInformation("User {userId} found", user.UserId);
 
-      if (user.PasswordCreationDate == null || string.IsNullOrEmpty(user.Password))
+      // A terme, le mot de passe sera a usage unique
+      // Pour le moment, on ne vérifie par la date de création du mot de passe.
+      // On ne reset pas le mot de passe après usage
+      if (resetPassword)
       {
-        this.logger.LogWarning("User {userId} has no password creation date.", user.UserId);
-        return null;
+        if (user.PasswordCreationDate == null || string.IsNullOrEmpty(user.Password))
+        {
+          this.logger.LogWarning("User {userId} has no password creation date.", user.UserId);
+          return null;
+        }
+
+        this.logger.LogInformation("Password duration ok fo User {userId}", user.UserId);
+
+        var duration = DateTime.UtcNow - user.PasswordCreationDate.Value;
+        if (duration.TotalMinutes > passwordDurationInMinutes)
+        {
+          this.logger.LogWarning("User {userId} password expired. Duration: {duration} minutes.", user.UserId, duration.TotalMinutes);
+          return null;
+        }
+
+        this.logger.LogInformation("Reset OTP for User {userId}.", user.UserId);
+        await this.calendarRepository.UpdateTempPasswordAsync(user.UserId, null, null);
       }
-
-      this.logger.LogInformation("Password duration ok fo User {userId}", user.UserId);
-
-      var duration = DateTime.UtcNow - user.PasswordCreationDate.Value;
-      if (duration.TotalMinutes > passwordDurationInMinutes)
-      {
-        this.logger.LogWarning("User {userId} password expired. Duration: {duration} minutes.", user.UserId, duration.TotalMinutes);
-        return null;
-      }
-
-      this.logger.LogInformation("Reset OTP for User {userId}.", user.UserId);
-      await this.calendarRepository.UpdateTempPasswordAsync(user.UserId, null, null);
 
       if (!PasswordHasher.Verify(password, user.Password))
       {

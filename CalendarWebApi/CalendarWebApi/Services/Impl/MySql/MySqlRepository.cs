@@ -40,7 +40,7 @@ namespace CalendarWebApi.Services.Impl.MySql
     //   => this.userRepository.GetUserByPasswordAsync(userId, password);
 
     public Task<User?> UpdateTempPasswordAsync(string userId, string? password, DateTime? dateTime)
-      => this.userRepository.UpdateTempPasswordAsync(userId, password, dateTime);
+      => this.userRepository.UpdatePasswordAsync(userId, password, dateTime);
 
     public Task InsertRefreshTokenAsync(RefreshToken token)
       => this.refreshTokenRepository.InsertRefreshTokenAsync(token);

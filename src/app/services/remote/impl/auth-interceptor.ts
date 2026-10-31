@@ -17,7 +17,7 @@ export const authInterceptor: HttpInterceptorFn = (
                 return from(authService.refreshAsync()).pipe(
                     switchMap(() => next(req)),
                     catchError(() => {
-                        router.navigate(['/login-request']);
+                        router.navigate(['/login']);
                         return throwError(() => error);
                     })
                 );
