@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "Connexion";
+}
+
+<main class="login-page">
+    <section class="login-card" aria-labelledby="login-title">
+        <p class="login-eyebrow">Calendrier</p>
+        <h1 id="login-title">Bienvenue</h1>
+        <p class="login-subtitle">Connectez-vous pour accéder à votre calendrier.</p>
+
+        <form id="login-form" class="login-form">
+            @Html.AntiForgeryToken()
+
+            <label for="login-name">Nom d’utilisateur</label>
+            <input id="login-name" name="name" type="text" autocomplete="username" placeholder="Votre nom" required />
+
+            <label for="login-password">Mot de passe</label>
+            <input id="login-password" name="password" type="password" autocomplete="current-password"
+                   placeholder="Votre mot de passe" required />
+
+            <p id="login-error" class="login-error" role="alert" aria-live="polite"></p>
+
+            <button id="login-submit" type="submit">Se connecter</button>
+        </form>
+    </section>
+</main>
+
+@section Scripts {
+    <script src="/js/login.js" defer></script>
+}

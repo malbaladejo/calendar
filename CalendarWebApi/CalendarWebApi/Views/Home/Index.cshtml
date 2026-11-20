@@ -1,0 +1,26 @@
+@model CalendarWebApi.ViewModels.CalendarViewModel
+
+<main class="calendar-page">
+    <header class="calendar-header">
+        <p class="calendar-eyebrow">Planification</p>
+        <h1>@Model.Title</h1>
+        <p class="calendar-subtitle">Les six mois à partir d’aujourd’hui</p>
+    </header>
+
+    <div class="months-grid" aria-label="Calendrier des six prochains mois">
+        @foreach (var month in Model.Months)
+        {
+            <section class="month-card" aria-label="@month.Title">
+                <h2>@month.Title</h2>
+
+                <div class="month-grid">
+                    @foreach (var day in month.Days)
+                    {
+                        <time class="@day.CssClass" datetime="@day.DateIso"
+                              aria-label="@day.AccessibleLabel">@day.DisplayLabel</time>
+                    }
+                </div>
+            </section>
+        }
+    </div>
+</main>

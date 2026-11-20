@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="/css/calendar.css" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="calendar-toolbar" aria-label="Navigation du calendrier">
+
+            <div class="calendar-navigation">
+                
+                <p class="calendar-year">Calendrier</p>
+                
+                @if (ViewData["IsHomePage"] as bool? == true)
+                {
+                    <a class="calendar-nav-button" href="@ViewData["PreviousSixMonthsUrl"]"
+                       aria-label="Reculer de six mois">&lt;&lt;
+                    </a>
+                    <a class="calendar-nav-button" href="@ViewData["PreviousMonthUrl"]" aria-label="Reculer d’un mois">
+                        &lt;
+                    </a>
+
+                    
+
+                    <a class="calendar-nav-button" href="@ViewData["NextMonthUrl"]" aria-label="Avancer d’un mois">
+                        &gt;
+                    </a>
+                    <a class="calendar-nav-button" href="@ViewData["NextSixMonthsUrl"]" aria-label="Avancer de six mois">
+                        &gt;&gt;
+                    </a>
+                }
+            </div>
+
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <div class="header-account">
+                    <span class="header-user-name">@User.Identity.Name</span>
+                    <form id="logout-form" action="/api/authenticate/logout" method="post">
+                        <button class="logout-button" type="submit">Déconnexion</button>
+                    </form>
+                </div>
+            }
+        </nav>
+    </header>
+    @RenderBody()
+
+    <script src="/js/site.js" defer></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

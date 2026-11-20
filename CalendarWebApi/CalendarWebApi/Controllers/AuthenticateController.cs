@@ -51,8 +51,9 @@ namespace CalendarWebApi.Controllers
     }
 
     [AllowAnonymous]
-    [HttpGet("login")]
-    public async Task<ActionResult> LoginAsync(string name, string password)
+    [HttpGet("login-otp")]
+    /// <summary>Login avec OTP</summary>
+    public async Task<ActionResult> LoginWithOtpAsync(string name, string password)
     {
       try
       {
@@ -74,8 +75,9 @@ namespace CalendarWebApi.Controllers
     }
 
     [AllowAnonymous]
-    [HttpGet("quick-login")]
-    public async Task<ActionResult> QuickLoginAsync(string name, string password)
+    [HttpGet("login")]
+    /// <summary>Login avec mot de passe permanent</summary>
+    public async Task<ActionResult> LoginWithPermanentPasswordAsync(string name, string password)
     {
       try
       {
@@ -176,9 +178,6 @@ namespace CalendarWebApi.Controllers
       var refreshToken = Request.Cookies[JwtCookies.RefreshToken];
       this.logger.LogInformation("Login for {user}", userId);
 
-      if (string.IsNullOrEmpty(refreshToken))
-        return Ok();
-
       Response.Cookies.Append(JwtCookies.AccessToken, "", new CookieOptions
       {
         HttpOnly = true,
@@ -195,13 +194,16 @@ namespace CalendarWebApi.Controllers
         Expires = DateTimeOffset.UtcNow.AddDays(-1) // Date dans le passé
       });
 
-      try
+      if (!string.IsNullOrEmpty(refreshToken))
       {
-        await this.jwtTokenCreator.RevokeRefreshTokenAsync(refreshToken);
-      }
-      catch (Exception ex)
-      {
-        this.logger.LogError(ex, "Error during logout");
+        try
+        {
+          await this.jwtTokenCreator.RevokeRefreshTokenAsync(refreshToken);
+        }
+        catch (Exception ex)
+        {
+          this.logger.LogError(ex, "Error during logout");
+        }
       }
 
       return Ok();

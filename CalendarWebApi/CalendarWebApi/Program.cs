@@ -17,7 +17,7 @@ internal class Program
             });
     });
 
-    builder.Services.AddControllers();
+    builder.Services.AddControllersWithViews();
 
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
@@ -35,9 +35,6 @@ internal class Program
 
     var app = builder.Build();
 
-    // sert index.html automatiquement sur "/"
-    app.UseDefaultFiles();
-
     // sert les fichiers statiques (js, css, etc.)
     app.UseStaticFiles();
 
@@ -52,9 +49,14 @@ internal class Program
 
     app.UseHttpsRedirection();
 
+    app.UseAuthentication();
     app.UseAuthorization();
 
     app.MapControllers();
+
+    app.MapControllerRoute(
+      name: "default",
+      pattern: "{controller=Home}/{action=Index}/{id?}");
 
     app.MapFallbackToFile("index.html");
 

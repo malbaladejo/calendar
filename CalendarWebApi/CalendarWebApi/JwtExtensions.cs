@@ -26,6 +26,17 @@ internal static class JwtExtensions
 
              options.Events = new JwtBearerEvents
              {
+               OnChallenge = context =>
+               {
+                 if (!context.Request.Path.StartsWithSegments("/api") &&
+                     context.Request.Headers.Accept.Any(value => value?.Contains("text/html", StringComparison.OrdinalIgnoreCase) == true))
+                 {
+                   context.HandleResponse();
+                   context.Response.Redirect("/Home/Login");
+                 }
+
+                 return Task.CompletedTask;
+               },
                OnMessageReceived = context =>
                {
                  context.Token = context.Request.Cookies[JwtCookies.AccessToken];
