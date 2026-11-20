@@ -1,0 +1,24 @@
+<main class="calendar-page">
+    <header class="calendar-header">
+        <p class="calendar-eyebrow">Gestion des données</p>
+        <h1>Importer des données</h1>
+        <p class="calendar-subtitle">Collez un tableau de données à importer.</p>
+    </header>
+
+    <form id="import-form" class="import-card" aria-labelledby="json-content-label">
+        <label id="json-content-label" for="json-content">Contenu</label>
+        <textarea id="json-content" name="jsonContent" rows="18" spellcheck="false" required
+                  placeholder='[
+  {
+    "date": "2026-01-01",
+    "label": "Exemple"
+  }
+]'></textarea>
+        <button id="import-submit" type="submit">Valider</button>
+        <p id="import-status" class="import-status" role="status" aria-live="polite"></p>
+    </form>
+</main>
+
+@section Scripts {
+    <script src="/js/import-data.js" defer></script>
+}

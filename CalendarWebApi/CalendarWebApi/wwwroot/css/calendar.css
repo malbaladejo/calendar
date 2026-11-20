@@ -178,6 +178,86 @@ body {
     font-weight: 750;
 }
 
+.calendar-day-label {
+    margin-left: auto;
+    padding-left: 0.75rem;
+    text-align: right;
+}
+
+.import-card {
+    display: flex;
+    max-width: 56rem;
+    flex-direction: column;
+    gap: 0.55rem;
+    padding: 1.25rem;
+    border: 1px solid #e3eaee;
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: 0 8px 24px rgb(23 43 58 / 5%);
+}
+
+.import-card label {
+    color: #344d5c;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.import-card textarea {
+    box-sizing: border-box;
+}
+
+.import-card textarea {
+    width: 100%;
+    min-height: 18rem;
+    resize: vertical;
+    padding: 0.85rem;
+    border: 1px solid #cfdde3;
+    border-radius: 0.65rem;
+    background: #fff;
+    color: #172b3a;
+    font: 0.9rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.import-card textarea:focus {
+    border-color: #187c78;
+    outline: none;
+    box-shadow: 0 0 0 3px rgb(24 124 120 / 12%);
+}
+
+.import-card button {
+    min-height: 3rem;
+    border: 0;
+    border-radius: 0.65rem;
+    background: #187c78;
+    color: #fff;
+    font: inherit;
+    font-weight: 750;
+    cursor: pointer;
+}
+
+.import-card button:hover:not(:disabled) {
+    background: #126965;
+}
+
+.import-card button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.import-status {
+    min-height: 1.25rem;
+    margin: 0;
+    color: #344d5c;
+}
+
+.import-status--error {
+    color: #a12828;
+}
+
+.import-status--success {
+    color: #126965;
+}
+
 @media (max-width: 1250px) {
     .months-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));

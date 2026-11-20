@@ -16,8 +16,13 @@
                 <div class="month-grid">
                     @foreach (var day in month.Days)
                     {
-                        <time class="@day.CssClass" datetime="@day.DateIso"
-                              aria-label="@day.AccessibleLabel">@day.DisplayLabel</time>
+                        <time class="@day.CssClass" datetime="@day.DateIso" aria-label="@day.AccessibleLabel">
+                            @day.DisplayLabel
+                            @if (!string.IsNullOrWhiteSpace(day.CustomLabel?.Label))
+                            {
+                                <span class="calendar-day-label">@day.CustomLabel.Label</span>
+                            }
+                        </time>
                     }
                 </div>
             </section>

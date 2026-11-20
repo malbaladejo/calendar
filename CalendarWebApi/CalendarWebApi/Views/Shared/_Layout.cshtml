@@ -15,7 +15,7 @@
 
             <div class="calendar-navigation">
                 
-                <p class="calendar-year">Calendrier</p>
+                <a class="calendar-year" href="/" aria-label="Aller à l’accueil du calendrier">Calendrier</a>
                 
                 @if (ViewData["IsHomePage"] as bool? == true)
                 {
@@ -40,6 +40,7 @@
             @if (User.Identity?.IsAuthenticated == true)
             {
                 <div class="header-account">
+                    <a class="calendar-nav-button" href="/ImportData">Import</a>
                     <span class="header-user-name">@User.Identity.Name</span>
                     <form id="logout-form" action="/api/authenticate/logout" method="post">
                         <button class="logout-button" type="submit">Déconnexion</button>
